@@ -1,47 +1,37 @@
 import { useContext, useState} from "react"
+import { createContext } from "react"
 
-const GameContext = React.createContext()
+const GameContext = createContext()
 
 export const useGameState = () =>{
     return useContext(GameContext)
 }
 
-export const createGameState = () => {
-    arr = []
+ const createGameState = () => {
+    let arr = []
   
     for(let i  = 0; i < 5; i++) {
-      row = []
-          for(let j = 0; j < 5; j++) {
-            row.push("")
+      let row = []
+        for(let j = 0; j < 5; j++) {
+            row.push(j)
           }
   
           arr.push(row)
       }
+
+    return arr
+    // console.log(arr)
   }
 
 export function GCProvider({ children}) {
     
-    const [gameState, setGameState] = useState()
+    const [gameState, setGameState] = useState(createGameState)
     const [inPlay, setInPlay] = useState(true)
-    
-    arr = []
-
-    for(let i  = 0; i < 5; i++) {
-        row = []
-        for(let j = 0; j < 5; j++) {
-            row.push("")
-        }
-    }
-
-        arr.push(row)
-
-
   
     const value = {
         gameState,
         inPlay
     }
-
 
     return(
         <GameContext.Provider value = {value}>

@@ -3,11 +3,11 @@ import Box from './Box'
 
 const Row = (props) => {
 
-    const { gameState, active } = props
+    const { stateRow } = props
 
     const createRow = () => {
 
-        let row = gameState.map((spite) => {
+        let row = stateRow.map((spite) => {
             return <Box letter= { spite } />
         })
 

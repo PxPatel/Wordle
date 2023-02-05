@@ -20,7 +20,7 @@ const Game = (props) => {
   }
 
   return (
-    <div className='flex content-center flex-col justify-center bg-red-200 min-h-screen min-w-screen' >
+    <div className='flex content-center flex-col justify-center bg-blue-200 min-h-screen min-w-screen' >
       { makeBoard() }
     </div>
   )

@@ -1,10 +1,20 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 const Box = (props) => {
+
+  const { letter } = props
+
+  const reg = <div className= ' bg-[#121213] w-[50px] h-[50px] border-2 border-box border-[#3a3a3c] m-1'>    
+                { letter }
+              </div>
+
+  const filled = <div className= 'flex justify-center content-center text-center text-white bg-[#121213] w-[50px] h-[50px] border-2 border-box border-[#565758] m-1'>    
+                  { letter }
+                  </div>
+
   return (
-    <div className= 'flex content-center justify-center bg-slate-400 w-20 h-20 border-2 border-white'>
-      { props.letter }
+    <div>
+      { letter !== '' ? filled : reg }
     </div>
   )
 }

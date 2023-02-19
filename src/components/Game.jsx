@@ -9,7 +9,7 @@ const Game = (props) => {
 
   const makeBoard = () => {
     const board = gameState.map((row,i) => { 
-      return <Row stateRow= {row} isActive= { i === currRow ? true : false } key= { i }/>
+      return <Row stateRow= {row} isActive= { i === currRow ? true : false } key= { i } rowKey= {i}/>
     })
     return board
   }

@@ -30,6 +30,7 @@ export function GCProvider({ children}) {
     // const [inPlay, setInPlay] = useState(true)
     const [currRow, setCurrRow] = useState(0)
     const [currBox, setCurrBox] = useState(0)
+    const [invalidRow, setInvalidRow] = useState(null)
     
 
     function handleKeyChanges(e){
@@ -64,31 +65,6 @@ export function GCProvider({ children}) {
         setGameState(nextState)
         setCurrBox(currBox-1)
     }
-    
-    async function checkValidity() {
-        const validWord = await wordAPI(gameState[currRow].join("")) || false
-        console.log("ValidWord: " + validWord)
-        if(validWord){
-            // animateRow()
-            nextRow()
-        }
-    }
-
-    async function wordAPI(word){
-        const url = 'https://api.dictionaryapi.dev/api/v2/entries/en/'
-        const res = await axios.get(url + word)
-            .then((response) => true)
-            .catch((err) => false)
-        return res
-    }
-
-    function animateRow(){
-
-    }
-
-    function animateBoxChange(){
-        console.log('HEHE')
-    }
 
     function nextRow(){
     
@@ -97,16 +73,62 @@ export function GCProvider({ children}) {
             setCurrBox(0)
         }
     }
+    
+    async function checkValidity() {
+        const validWord = await wordAPI(gameState[currRow].join("")) || false
+        if(validWord){
+            animateValidRow()
+            nextRow()
+        }
+        else{
+            animateInvalidRow()
+        }
 
-    function clearBox(){
-
+        async function wordAPI(word){
+            const url = 'https://api.dictionaryapi.dev/api/v2/entries/en/'
+            const res = await axios.get(url + word)
+                .then((response) => true)
+                .catch((err) => false)
+            return res
+        }
     }
-  
+
+
+    function animateValidRow(){
+        
+    }
+
+    async function animateInvalidRow(){
+        var i = 1
+        const blinkTimes = 2
+
+        setInvalidRow(currRow)
+
+        const intervalId = setInterval(() => {
+            console.log("Stopped")
+            setInvalidRow(null)
+
+            if(i !== blinkTimes){
+                i++
+                console.log("Restarted")
+                setTimeout(() => { setInvalidRow(currRow) },100)
+            }
+            else{
+                clearInterval(intervalId)
+            }
+        }, 150)
+
+        // https://stackoverflow.com/questions/22252214/making-text-blink-a-certain-number-of-times
+        // https://dev.to/lydiahallie/javascript-visualized-promises-async-await-5gke
+        // https://dev.to/masteringjs/using-then-vs-async-await-in-javascript-2pma
+    }
+
     const value = {
         gameState,
         // inPlay,
         currRow,
-        handleKeyChanges
+        invalidRow,
+        handleKeyChanges,
     }
 
     return(

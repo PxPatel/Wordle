@@ -3,24 +3,20 @@ import Box from './Box'
 
 const Row = (props) => {
 
-    const { stateRow } = props
+    const { stateRow, isActive, rowKey} = props
 
     const createRow = () => {
-
-        var i = -1
-
-        const row = stateRow.map((spite) => {
-            i++
-            return <Box letter= { spite } key= { i } />
+        const row = stateRow.map((spite,i) => {
+            return <Box letter= { spite } isActive= {isActive} key= { i } inRow= { rowKey }/>
         })
 
         return row
     }
 
   return (
-    <div className='flex justify-center content-center h-20'> 
-        { createRow() } 
-    </div>
+      <div className='flex justify-center content-center h-fit'> 
+          { createRow() } 
+      </div>
   )
 }
   

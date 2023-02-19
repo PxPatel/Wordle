@@ -5,23 +5,24 @@ import { useGameState } from '../util/context'
 
 const Game = (props) => {
 
-  const { gameState, inPlay } = useGameState()
+  const { gameState, currRow, handleKeyChanges } = useGameState()
 
   const makeBoard = () => {
-
-    var i = -1
-    const board = gameState.map(row => { 
-      i++
-      return <Row stateRow= {row} key= { i }/>
+    const board = gameState.map((row,i) => { 
+      return <Row stateRow= {row} isActive= { i === currRow ? true : false } key= { i } rowKey= {i}/>
     })
-
-    console.log(board)
     return board
   }
 
+  // bg-[#145266]
+
   return (
-    <div className='flex content-center flex-col justify-center bg-red-200 min-h-screen min-w-screen' >
+    <div className='flex flex-1 flex-col justify-center content-center bg-[#121213] min-h-full min-w-screen' 
+      onKeyDown={ handleKeyChanges }
+      tabIndex={-1}
+      >
       { makeBoard() }
+
     </div>
   )
 }

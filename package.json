@@ -1,5 +1,5 @@
 {
-  "name": "codespaces-react",
+  "name": "codespaces-wordle",
   "version": "0.1.0",
   "private": true,
   "homepage": "https://priirp.github.io/Wordle",
@@ -15,7 +15,8 @@
     "web-vitals": "^3.1.0"
   },
   "scripts": {
-    "start": "BROWSER=none WDS_SOCKET_PORT=0 react-scripts start",
+    "csstart": "BROWSER=none WDS_SOCKET_PORT=0 react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

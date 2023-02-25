@@ -1,19 +1,23 @@
 import React from 'react'
+import { useGameState } from '../util/context'
 import Box from './Box'
 
-const Row = (props) => {
+const Row = ({ stateRow, rowNum}) => {
 
-    const { stateRow, isActive, rowKey} = props
+    const { colorState } = useGameState()
 
     const createRow = () => {
         const row = stateRow.map((spite,i) => {
-            return <Box letter= { spite } isActive= {isActive} key= { i } inRow= { rowKey }/>
+            return <Box 
+                letter= { spite } 
+                inRow= { rowNum } 
+                fill= { colorState[rowNum][i] } 
+                key= { i } />
         })
-
         return row
-    }
+    }   
 
-  return (
+    return (
       <div className='flex justify-center content-center h-fit'> 
           { createRow() } 
       </div>

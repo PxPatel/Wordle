@@ -25,6 +25,7 @@ export function GCProvider({ children }) {
             let output = await randomWordAPI()
             setFinalWord(output)
             setLoading(true)
+            console.log(output)
         }
         getWord()
     }, [])
@@ -66,7 +67,10 @@ export function GCProvider({ children }) {
     }
 
     function nextRow(){
-        if(currRow < 5){ 
+        if(currRow < 6){ 
+            if(currRow + 1 === 6){
+                setInPlay(false)
+            }
             setCurrRow(currRow+1)
             setCurrBox(0)
         }

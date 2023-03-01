@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState} from "react"
 import { createContext } from "react"
-import { createColorState, createGameState, deepCopify, randomWordAPI, wordAPI } from "./base"
+import { createColorState, createGameState, deepCopify, dictify, randomWordAPI, wordAPI } from "./base"
 
 const GameContext = createContext()
 
@@ -12,7 +12,7 @@ export function GCProvider({ children }) {
 
     const [gameState, setGameState] = useState(createGameState)
     const [colorState, setColorState] = useState(createColorState)
-    const [finalWord, setFinalWord] = useState() //Try storing in Local Memory
+    const [realWord, setRealWord] = useState() //Try storing in Local Memory
     const [inPlay, setInPlay] = useState(true)
     const [loading, setLoading] = useState()
     const [currRow, setCurrRow] = useState(0)
@@ -23,7 +23,7 @@ export function GCProvider({ children }) {
         async function getWord(){
             setLoading(false)
             let output = await randomWordAPI()
-            setFinalWord(output)
+            setRealWord(output)
             setLoading(true)
             console.log(output)
         }
@@ -80,7 +80,8 @@ export function GCProvider({ children }) {
         const validWord = await wordAPI(gameState[currRow].join("")) || false
 
         if(validWord){
-            animateValidRow()
+            // animateValidRow()
+            colorMeUp()
             nextRow()
         }
         else{
@@ -92,10 +93,52 @@ export function GCProvider({ children }) {
         const nextState = deepCopify(colorState)
         const row = nextState[currRow]
         let userArr = [...gameState[currRow]]
-        let finalArr = finalWord.split("")
+        let finalArr = realWord.split("")
         
         for( let i = 0; i < userArr.length; i++){
             finalArr.includes(userArr[i]) ? (userArr[i] === finalArr[i] ? (row[i] = 'bg-CORRECT') : (row[i] = 'bg-PARTIAL')) : (row[i] = 'bg-EMPTY')
+        }
+        setColorState(nextState)
+    }
+
+    function colorMeUp(){
+        const nextState = deepCopify(colorState)
+        const row = nextState[currRow]
+        // console.log(realWord)
+        // console.log([...gameState[currRow]].join(""))
+        // if(realWord === ([...gameState[currRow]].join(""))){ 
+            
+        //     console.log("PERFECT") 
+        // }
+        // else{ console.log("STUPID")}
+
+        const guessArr = [...gameState[currRow]]
+        const realDict = dictify(realWord)
+
+        //[a, p, a, l, e]   R
+        /**
+         * {
+            2: a,
+            4: e
+            }
+        **/
+        //[a, p, p, l, y]   G
+
+        //[G, G, E, G, E]
+        //Check if in arr ? row[i] = Yellow
+        //Check if correct idx ? row[i] = Green
+
+
+        //Iterate and delete letters that are on perfect index
+        for( let i = 0; i < guessArr.length; i++){
+            if( guessArr[i] === realDict.at[i]){
+                row[i] = 'bg-CORRECT'
+                delete realDict[i]
+            }
+        }
+
+        for(const key of Object.keys(realDict)){
+            (Object.values(realDict)).includes(guessArr[key]) ? row[key] = 'bg-PARTIAL' : row[key] = 'bg-INCORRECT'
         }
         setColorState(nextState)
     }

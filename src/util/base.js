@@ -2,6 +2,15 @@ import axios from "axios"
 
 export const deepCopify = (arr) => JSON.parse(JSON.stringify(arr))
 
+export const dictify = (str) => {
+  var dict = {}
+  ([...str]).forEach((el, index) =>{
+    console.log(dict[index])
+  });
+  
+  return dict
+}
+
 export const randomWordAPI = async () => {
     const url = 'https://random-word-api.herokuapp.com/word?length=5'
     const res = await axios.get(url)
@@ -18,7 +27,7 @@ export const randomWordAPI = async () => {
     return res
 }
 
-export const wordAPI = async (word) => {
+export const wordAPI = async(word) => {
     const url = 'https://api.dictionaryapi.dev/api/v2/entries/en/'
     const res = await axios.get(url + word)
         .then((response) => true)

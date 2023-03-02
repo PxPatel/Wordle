@@ -3,12 +3,12 @@ import { useGameState } from '../util/context'
 
 const Box = ({ letter, inRow, fill }) => {
   
-  const { invalidRow } = useGameState() 
+  const { invalidRow: invalid } = useGameState() 
   
   return (
     <div 
-      className= {`font-[Trebuchet MS] flex justify-center content-center leading-10 text-center text-white bg-[#121213] w-[50px] h-[50px] border-2 border-box m-1 ${letter ? "border-[#3a3a3c]" : "border-[#565758]"} ${invalidRow === inRow ? 'border-red-700' : ''} ${ fill } `}>      
-      { letter }
+      className= {` min-w-[60px] min-h-[60px] m-1 flex place-content-center  place-items-center border-box font-TMS text-[2rem] text-white bg-[#121213] border-2 ${letter ? "animate-pop border-[#3a3a3c]" : "border-[#565758]"} ${invalid === inRow ? 'border-red-700' : ''} ${ fill } `}>      
+       {letter}
     </div>
   )
 }

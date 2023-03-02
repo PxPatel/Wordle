@@ -140,7 +140,7 @@ export function GCProvider({ children }) {
 
         const mapValues = [...realDict.values()]
         for(const key of realDict.keys()){
-            mapValues.includes(guessArr[key]) ? row[key] = 'bg-PARTIAL' : row[key] = 'bg-INCORRECT'
+            mapValues.includes(guessArr[key]) ? row[key] = 'bg-PRESENT' : row[key] = 'bg-ABSENT'
         }
         setColorState(nextState)
     }

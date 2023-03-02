@@ -18,7 +18,7 @@ const Row = ({ stateRow, rowNum}) => {
     }   
 
     return (
-      <div className='flex justify-center content-center h-fit'> 
+      <div className='flex place-content-center h-fit'> 
           { createRow() } 
       </div>
   )

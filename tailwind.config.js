@@ -8,9 +8,27 @@ module.exports = {
       colors: {
         EMPTY: "#121213",
         CORRECT: "#86efac",
-        PARTIAL: "#fef08a",
-        INCORRECT: "#a1a1aa"
+        PRESENT: "#fef08a",
+        ABSENT: "#a1a1aa"
+      },
+
+      fontFamily:{
+        ATW: "American Typewriter",
+        TMS: "Trebuchet MS"
+      },
+
+      keyframes: {
+        Pop: {
+          '0%': {transform : 'scale(.75)'},
+          '50%': {transform : 'scale(1.1)'},
+          // '100%': {transform : 'scale(1)'}
+        }
+      },
+
+      animation: {
+        pop: 'Pop 100ms ease-in-out 1'
       }
+
     },
   },
   plugins: [],

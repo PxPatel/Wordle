@@ -28,7 +28,7 @@ const Game = () => {
 
   // bg-[#145266]
   return (
-    <div className='flex flex-1 flex-col justify-center content-center bg-[#121213] min-h-full min-w-screen' 
+    <div className='flex flex-1 flex-col place-content-center bg-[#121213] min-h-full min-w-screen' 
       onKeyDown={ inPlay && !loading ? handleKeyChanges : undefined }
       tabIndex={-1}
       ref= { gameRef }

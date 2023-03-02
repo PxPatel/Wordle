@@ -2,7 +2,7 @@ import React from 'react'
 
 const NavBar = () => {
   return (
-    <div className='font-[American-Typewriter] flex justify-center bg-[#121213] p-6 text-white text-4xl font-extrabold tracking-wide subpixel-antialiased border-b-2 border-b-[#c8d4e8]' >
+    <div className='font-TMS flex justify-center bg-[#121213] p-6 text-white text-4xl font-extrabold tracking-wide subpixel-antialiased border-b-2 border-b-[#c8d4e8]' >
       Wordle
     </div>
   )

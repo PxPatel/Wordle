@@ -3,11 +3,8 @@ import axios from "axios"
 export const deepCopify = (arr) => JSON.parse(JSON.stringify(arr))
 
 export const dictify = (str) => {
-  var dict = {}
-  ([...str]).forEach((el, index) =>{
-    console.log(dict[index])
-  });
-  
+  var dict = new Map(); //Can be done with simply {} //Update coming soon
+  ([...str]).forEach((el, index) => dict.set(index, el));
   return dict
 }
 

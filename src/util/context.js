@@ -21,10 +21,11 @@ export function GCProvider({ children }) {
 
     useEffect(() => {
         async function getWord(){
-            setLoading(false)
+            setLoading(true)
             let output = await randomWordAPI()
             setRealWord(output)
-            setLoading(true)
+            // setRealWord("")
+            setLoading(false)
             console.log(output)
         }
         getWord()
@@ -124,21 +125,22 @@ export function GCProvider({ children }) {
         **/
         //[a, p, p, l, y]   G
 
-        //[G, G, E, G, E]
+        //[G, G, E, G, E] 
         //Check if in arr ? row[i] = Yellow
         //Check if correct idx ? row[i] = Green
 
 
         //Iterate and delete letters that are on perfect index
         for( let i = 0; i < guessArr.length; i++){
-            if( guessArr[i] === realDict.at[i]){
+            if( guessArr[i] === realDict.get(i)){
                 row[i] = 'bg-CORRECT'
-                delete realDict[i]
+                realDict.delete(i)
             }
         }
 
-        for(const key of Object.keys(realDict)){
-            (Object.values(realDict)).includes(guessArr[key]) ? row[key] = 'bg-PARTIAL' : row[key] = 'bg-INCORRECT'
+        const mapValues = [...realDict.values()]
+        for(const key of realDict.keys()){
+            mapValues.includes(guessArr[key]) ? row[key] = 'bg-PARTIAL' : row[key] = 'bg-INCORRECT'
         }
         setColorState(nextState)
     }

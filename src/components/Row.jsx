@@ -4,13 +4,13 @@ import Box from './Box'
 
 const Row = ({ stateRow, rowNum}) => {
 
-    const { colorState } = useGameState()
+    const { colorState, invalidRow } = useGameState()
 
     const createRow = () => {
         const row = stateRow.map((spite,i) => {
             return <Box 
                 letter= { spite } 
-                inRow= { rowNum } 
+                invalid= { invalidRow === rowNum } 
                 fill= { colorState[rowNum][i] } 
                 key= { i } />
         })
@@ -18,7 +18,7 @@ const Row = ({ stateRow, rowNum}) => {
     }   
 
     return (
-      <div className='flex place-content-center h-fit'> 
+      <div className={`flex place-content-center w-full h-fit`}> 
           { createRow() } 
       </div>
   )

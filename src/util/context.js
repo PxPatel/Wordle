@@ -56,12 +56,13 @@ export function GCProvider({ children }) {
             const nextState = deepCopify(gameState)
             nextState[currRow][currBox] = key
             const nextStyleState = deepCopify(styleState)
-            nextStyleState[currRow][currBox-1][1] = "animate-pop"
+            nextStyleState[currRow][currBox-1][1] = 'animate-pop'
+
             setGameState(nextState)
             setCurrBox(currBox+1)
             setStyleState(nextStyleState)
             setTimeout(() =>{ 
-                nextStyleState[currRow][currBox-1][1] = ""
+                nextStyleState[currRow][currBox-1][1] = ''
                 setStyleState(nextStyleState) 
             }, 110)
         }
@@ -69,12 +70,16 @@ export function GCProvider({ children }) {
 
     function deleteLetter(){
         const nextGameState = deepCopify(gameState)
-        nextGameState[currRow][currBox-1] = ""
-        const nextStyleState = deepCopify(styleState)
-        nextStyleState[currRow][currBox-1][1] = ""
+        nextGameState[currRow][currBox-1] = ''
+
+        if(styleState[currRow][currBox-1][1] !== ''){
+            const nextStyleState = deepCopify(styleState)
+            nextStyleState[currRow][currBox-1][1] = ''
+            setStyleState(nextStyleState)
+        }
+
         setGameState(nextGameState)
         setCurrBox(currBox-1)
-        setStyleState(nextStyleState)
     }
 
     function nextRow(){

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState} from "react"
 import { createContext } from "react"
-import { createColorState, createGameState, deepCopify, dictify, randomWordAPI, wordAPI } from "./base"
+import { createstyleState, createStyleState, createGameState, deepCopify, dictify, randomWordAPI, wordAPI } from "./base"
 
 const GameContext = createContext()
 
@@ -11,7 +11,8 @@ export const useGameState = () =>{
 export function GCProvider({ children }) {
 
     const [gameState, setGameState] = useState(createGameState)
-    const [colorState, setColorState] = useState(createColorState)
+    const [styleState, setStyleState] = useState(createStyleState)
+    // console.table(styleState)
     const [realWord, setRealWord] = useState() //Try storing in Local Memory
     const [inPlay, setInPlay] = useState(true)
     const [loading, setLoading] = useState()
@@ -81,7 +82,6 @@ export function GCProvider({ children }) {
         const validWord = await wordAPI(gameState[currRow].join("")) || false
 
         if(validWord){
-            // animateValidRow()
             colorMeUp()
             nextRow()
         }
@@ -90,20 +90,8 @@ export function GCProvider({ children }) {
         }   
     }
 
-    function animateValidRow(){
-        const nextState = deepCopify(colorState)
-        const row = nextState[currRow]
-        let userArr = [...gameState[currRow]]
-        let finalArr = realWord.split("")
-        
-        for( let i = 0; i < userArr.length; i++){
-            finalArr.includes(userArr[i]) ? (userArr[i] === finalArr[i] ? (row[i] = 'bg-CORRECT') : (row[i] = 'bg-PARTIAL')) : (row[i] = 'bg-EMPTY')
-        }
-        setColorState(nextState)
-    }
-
     function colorMeUp(){
-        const nextState = deepCopify(colorState)
+        const nextState = deepCopify(styleState)
         const row = nextState[currRow]
         // console.log(realWord)
         // console.log([...gameState[currRow]].join(""))
@@ -133,16 +121,16 @@ export function GCProvider({ children }) {
         //Iterate and delete letters that are on perfect index
         for( let i = 0; i < guessArr.length; i++){
             if( guessArr[i] === realDict.get(i)){
-                row[i] = 'bg-CORRECT'
+                row[i][0] = 'bg-CORRECT'
                 realDict.delete(i)
             }
         }
 
         const mapValues = [...realDict.values()]
         for(const key of realDict.keys()){
-            mapValues.includes(guessArr[key]) ? row[key] = 'bg-PRESENT' : row[key] = 'bg-ABSENT'
+            mapValues.includes(guessArr[key]) ? row[key][0] = 'bg-PRESENT' : row[key][0] = 'bg-ABSENT'
         }
-        setColorState(nextState)
+        setStyleState(nextState)
     }
 
     async function animateInvalidRow(){
@@ -175,7 +163,7 @@ export function GCProvider({ children }) {
 
     const value = {
         gameState,
-        colorState,
+        styleState,
         inPlay,
         loading,
         invalidRow,

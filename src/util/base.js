@@ -32,17 +32,39 @@ export const wordAPI = async(word) => {
     return res
 }
 
-export const createColorState = () => {
+export const createStyleState = () => {
     let arr = []
+
     for(let i  = 0; i < 6; i++) {
       let row = []
+
         for(let j = 0; j < 5; j++) {
-            row.push("bg-EMPTY")
+          let box = []
+          for(let k = 0; k < 1; k++){
+            box.push('bg-EMPTY')
+            box.push(' ')
           }
-          arr.push(row)
-      }
+          row.push(box)
+        }
+
+      arr.push(row)
+    }
+
     return arr
-  }
+}
+
+
+export const createColorState = () => {
+  let arr = []
+  for(let i  = 0; i < 6; i++) {
+    let row = []
+      for(let j = 0; j < 5; j++) {
+          row.push("bg-EMPTY")
+        }
+        arr.push(row)
+    }
+  return arr
+}
 
   export const createGameState = () => {
     let arr = []

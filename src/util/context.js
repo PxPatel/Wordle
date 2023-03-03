@@ -11,7 +11,7 @@ export const useGameState = () =>{
 export function GCProvider({ children }) {
 
     const [gameState, setGameState] = useState(createGameState)
-    const [styleState, setstyleState] = useState(createStyleState)
+    const [styleState, setStyleState] = useState(createStyleState)
     const [realWord, setRealWord] = useState() //Try storing in Local Memory
     const [inPlay, setInPlay] = useState(true)
     const [loading, setLoading] = useState()
@@ -55,16 +55,26 @@ export function GCProvider({ children }) {
         if(currBox < 5){
             const nextState = deepCopify(gameState)
             nextState[currRow][currBox] = key
+            const nextStyleState = deepCopify(styleState)
+            nextStyleState[currRow][currBox-1][1] = "animate-pop"
             setGameState(nextState)
             setCurrBox(currBox+1)
+            setStyleState(nextStyleState)
+            setTimeout(() =>{ 
+                nextStyleState[currRow][currBox-1][1] = ""
+                setStyleState(nextStyleState) 
+            }, 110)
         }
     }
 
     function deleteLetter(){
-        const nextState = deepCopify(gameState)
-        nextState[currRow][currBox-1] = ""
-        setGameState(nextState)
+        const nextGameState = deepCopify(gameState)
+        nextGameState[currRow][currBox-1] = ""
+        const nextStyleState = deepCopify(styleState)
+        nextStyleState[currRow][currBox-1][1] = ""
+        setGameState(nextGameState)
         setCurrBox(currBox-1)
+        setStyleState(nextStyleState)
     }
 
     function nextRow(){
@@ -129,7 +139,7 @@ export function GCProvider({ children }) {
         for(const key of realDict.keys()){
             mapValues.includes(guessArr[key]) ? row[key][0] = 'bg-PRESENT' : row[key][0] = 'bg-ABSENT'
         }
-        setstyleState(nextState)
+        setStyleState(nextState)
     }
 
     async function animateInvalidRow(){

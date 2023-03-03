@@ -46,7 +46,7 @@ export const createStyleState = () => {
         //Create Multiple Styles for Each box
         for(let k = 0; j < 2; k++){
           box.push("bg-EMPTY")
-          box.push('No-Letter')
+          box.push('')
         } 
         row.push(box)
       } 

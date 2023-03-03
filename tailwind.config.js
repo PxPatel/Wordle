@@ -34,8 +34,7 @@ module.exports = {
         pop: 'Pop 100ms ease-in-out 1',
         shake: 'Shake 150ms ease-in-out 2' //Make iteration 2 times. Make Duration 200ms
       }
-
-    },
+    }
   },
   plugins: [],
 }

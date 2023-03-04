@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState} from "react"
 import { createContext } from "react"
-import { createstyleState, createStyleState, createGameState, deepCopify, dictify, randomWordAPI, wordAPI } from "./base"
+import { createStyleState, createGameState, deepCopify, dictify, randomWordAPI, wordAPI, delay } from "./base"
 
 const GameContext = createContext()
 
@@ -19,6 +19,8 @@ export function GCProvider({ children }) {
     const [currRow, setCurrRow] = useState(0)
     const [currBox, setCurrBox] = useState(0)
     const [invalidRow, setInvalidRow] = useState(null)
+
+    const invalidDelay = 300 
 
     useEffect(() => {
         async function getWord(){
@@ -56,14 +58,37 @@ export function GCProvider({ children }) {
         if(currBox < 5){
             const nextState = deepCopify(gameState)
             nextState[currRow][currBox] = key
+
+            // addPop(currRow, currBox)
             setGameState(nextState)
             setCurrBox(currBox+1)
         }
     }
 
+    // const addPop = (cRow, cBox) => {
+    //     const nextStyleState = deepCopify(styleState)
+    //     nextStyleState[cRow][cBox][1] = 'animate-pop'
+
+    //     setStyleState(nextStyleState)
+    //     console.log(cRow + " " + cBox + "Its Popping")
+    //     removePop(cRow, cBox, nextStyleState)
+    // }
+
+    // const removePop = async (cRow, cBox, nextStyleState) =>{
+    //     await delay(1000)
+    //     nextStyleState[cRow][cBox][1] = ' '
+    //     setStyleState(nextStyleState)
+    // }
+
+
     function deleteLetter(){
         const nextState = deepCopify(gameState)
         nextState[currRow][currBox-1] = ""
+
+        // const nextStyleState = deepCopify(styleState)
+        // nextStyleState[currRow][currBox-1][1] = ' '
+
+        // setStyleState(nextStyleState)
         setGameState(nextState)
         setCurrBox(currBox-1)
     }
@@ -80,7 +105,6 @@ export function GCProvider({ children }) {
     
     async function checkValidity() {
         const validWord = await wordAPI(gameState[currRow].join("")) || false
-
         if(validWord){
             colorMeUp()
             nextRow()
@@ -154,7 +178,7 @@ export function GCProvider({ children }) {
         // }, 150)
 
         setInvalidRow(currRow)
-        setTimeout(() =>{ setInvalidRow(null) }, 250)
+        setTimeout(() => setInvalidRow(null), invalidDelay)
 
         // https://stackoverflow.com/questions/22252214/making-text-blink-a-certain-number-of-times
         // https://dev.to/lydiahallie/javascript-visualized-promises-async-await-5gke

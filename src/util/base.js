@@ -8,6 +8,10 @@ export const dictify = (str) => {
   return dict
 }
 
+export const delay = ms => new Promise(
+  resolve => setTimeout(resolve, ms)
+);
+
 export const randomWordAPI = async () => {
     const url = 'https://random-word-api.herokuapp.com/word?length=5'
     const res = await axios.get(url)

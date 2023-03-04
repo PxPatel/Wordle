@@ -10,7 +10,8 @@ const Row = ({ stateRow, rowNum}) => {
         const row = stateRow.map((spite,i) => {
             return <Box 
                 letter= { spite } 
-                // inRow= { rowNum } 
+                // rowNum = { rowNum } 
+                // boxNum = { i }
                 isInvalid = {invalidRow === rowNum}
                 fill= { styleState[rowNum][i][0] } 
                 toPop = { styleState[rowNum][i][1]}
@@ -20,7 +21,7 @@ const Row = ({ stateRow, rowNum}) => {
     }   
 
     return (
-      <div className='flex place-content-center h-fit'> 
+      <div className={`flex place-content-center h-fit`}> 
           { createRow() } 
       </div>
   )

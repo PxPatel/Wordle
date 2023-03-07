@@ -17,6 +17,8 @@ const Row = ({ stateRow, rowNum}) => {
                 toPop = { styleState[rowNum][i][1]}
                 key= { i } />
         })
+
+        
         return row
     }   
 

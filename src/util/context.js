@@ -117,14 +117,7 @@ export function GCProvider({ children }) {
     function colorMeUp(){
         const nextState = deepCopify(styleState)
         const row = nextState[currRow]
-        // console.log(realWord)
-        // console.log([...gameState[currRow]].join(""))
-        // if(realWord === ([...gameState[currRow]].join(""))){ 
-            
-        //     console.log("PERFECT") 
-        // }
-        // else{ console.log("STUPID")}
-
+        
         const guessArr = [...gameState[currRow]]
         const realDict = dictify(realWord)
 

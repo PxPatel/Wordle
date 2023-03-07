@@ -8,6 +8,10 @@ export const dictify = (str) => {
   return dict
 }
 
+export const delay = ms => new Promise(
+  resolve => setTimeout(resolve, ms)
+);
+
 export const randomWordAPI = async () => {
     const url = 'https://random-word-api.herokuapp.com/word?length=5'
     const res = await axios.get(url)
@@ -35,35 +39,59 @@ export const wordAPI = async(word) => {
 export const createStyleState = () => {
     let arr = []
 
-    //Create Row
     for(let i  = 0; i < 6; i++) {
       let row = []
 
-      //Create Boxes
       for(let j = 0; j < 5; j++) {
         let box = []
-
-        //Create Multiple Styles for Each box
-        for(let k = 0; j < 2; k++){
-          box.push("bg-EMPTY")
-          box.push('')
-        } 
+        for(let k = 0; k < 1; k++){
+          box.push('bg-EMPTY')
+          box.push(' ')
+        }
         row.push(box)
-      } 
+      }
 
       arr.push(row)
     }
+
     return arr
-  }
+}
 
-  /**
-   *  [ 
-   *     [[Empty, No-Letter] , , , , , ],
-   *     [[Empty, No-Letter] , , , , , ]
-   *  ]
+// export const createStyleState = () => {
+//   let arr = []
 
+//   //Create Row
+//   for(let i = 0; i < 6; i++) {
+//     let row = []
 
-  **/
+//     //Create Boxes
+//     for(let j = 0; j < 5; j++) {
+//       let box = []
+
+//       //Create Multiple Styles for Each box
+//       for(let k = 0; j < 2; k++){
+//         box.push('bg-EMPTY')
+//         box.push('')
+//       } 
+//       row.push(box)
+//     } 
+
+//     arr.push(row)
+//   }
+//   return arr
+// }
+
+export const createColorState = () => {
+  let arr = []
+  for(let i  = 0; i < 6; i++) {
+    let row = []
+      for(let j = 0; j < 5; j++) {
+          row.push("bg-EMPTY")
+        }
+        arr.push(row)
+    }
+  return arr
+}
 
   export const createGameState = () => {
     let arr = []

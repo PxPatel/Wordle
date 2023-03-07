@@ -62,6 +62,11 @@ export function GCProvider({ children }) {
             // addPop(currRow, currBox)
             setGameState(nextState)
             setCurrBox(currBox+1)
+            setStyleState(nextStyleState)
+            setTimeout(() =>{ 
+                nextStyleState[currRow][currBox-1][1] = ''
+                setStyleState(nextStyleState) 
+            }, 110)
         }
     }
 

@@ -9,7 +9,7 @@ export const dictify = (str) => {
 }
 
 export const delay = ms => new Promise(
-  resolve => setTimeout(resolve, ms)
+  (resolve) => setTimeout(resolve, ms)
 );
 
 export const randomWordAPI = async () => {

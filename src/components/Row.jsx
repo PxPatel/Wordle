@@ -15,20 +15,13 @@ const Row = ({ stateRow, rowNum}) => {
                 // rowNum = { rowNum } 
                 // boxNum = { i }
                 isInvalid = {rowStyle.invalidRow === rowNum}
-                fill= { styleState[rowNum][i][0] } 
-                toFlip = { styleState[rowNum][i][1]}
+                fill= { styleState[rowNum][i].colorState } 
+                // toFlip = { styleState[rowNum][i][1]}
                 key= { i } />
         })
         return row
     }   
-    
-
-    // useEffect(() =>{
-    //     console.log(rowStyle.invalidRow)
-    //     console.log(rowNum)
-    //     console.log(rowStyle.invalidRow === rowNum)
-    // }, [rowStyle])
-
+  
     return (
       <div 
         className={`flex place-content-center h-fit ${ rowStyle.flipRow === rowNum ? 'animate-flip' : ''}`}

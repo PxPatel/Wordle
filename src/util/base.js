@@ -43,43 +43,13 @@ export const createStyleState = () => {
       let row = []
 
       for(let j = 0; j < 5; j++) {
-        let box = []
-        for(let k = 0; k < 1; k++){
-          box.push('bg-EMPTY')
-          box.push('')
-        }
-        row.push(box)
+        row.push({colorState : 'bg-EMPTY'})
       }
 
       arr.push(row)
     }
-
     return arr
 }
-
-// export const createStyleState = () => {
-//   let arr = []
-
-//   //Create Row
-//   for(let i = 0; i < 6; i++) {
-//     let row = []
-
-//     //Create Boxes
-//     for(let j = 0; j < 5; j++) {
-//       let box = []
-
-//       //Create Multiple Styles for Each box
-//       for(let k = 0; j < 2; k++){
-//         box.push('bg-EMPTY')
-//         box.push('')
-//       } 
-//       row.push(box)
-//     } 
-
-//     arr.push(row)
-//   }
-//   return arr
-// }
 
 export const createColorState = () => {
   let arr = []

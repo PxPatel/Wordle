@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState} from "react"
 import { createContext } from "react"
-import { createStyleState, createGameState, deepCopify, dictify, randomWordAPI, wordAPI, delay } from "./base"
+import { createStyleState, createGameState, deepCopify, dictify, randomWordAPI, wordAPI } from "./base"
 
 const GameContext = createContext()
 
@@ -17,12 +17,12 @@ export function GCProvider({ children }) {
     const [loading, setLoading] = useState()
     const [currRow, setCurrRow] = useState(0)
     const [currBox, setCurrBox] = useState(0)
-    const [invalidRow, setInvalidRow] = useState(null)
-    const [flipRow, setFlipRow] = useState(null)
+    // const [invalidRow, setInvalidRow] = useState(null)
+    // const [flipRow, setFlipRow] = useState(null)
     const [rowStyle, setRowStyle] = useState({ invalidRow : null, flipRow : null})
 
     const invalidDelay = 300 
-    const flipDelay = 750
+    const flipDelay = 1500
 
     useEffect(() => {
         async function getWord(){
@@ -97,9 +97,9 @@ export function GCProvider({ children }) {
         const validWord = await wordAPI(gameState[currRow].join("")) || false
         if(validWord){
             colorMeUp()
-            // flipMeUp()
-            flipMyBoxes()
-            // nextRow()
+            flipMyRow()
+            // flipMyBoxes()
+            nextRow()
         }
         else{
             animateInvalidRow()
@@ -126,19 +126,19 @@ export function GCProvider({ children }) {
         //Iterate and delete letters that are on perfect index
         for( let i = 0; i < guessArr.length; i++){
             if( guessArr[i] === realDict.get(i)){
-                row[i][0] = 'bg-CORRECT'
+                row[i].colorState = 'bg-CORRECT'
                 realDict.delete(i)
             }
         }
 
         const mapValues = [...realDict.values()]
         for(const key of realDict.keys()){
-            mapValues.includes(guessArr[key]) ? row[key][0] = 'bg-PRESENT' : row[key][0] = 'bg-ABSENT'
+            mapValues.includes(guessArr[key]) ? row[key].colorState = 'bg-PRESENT' : row[key].colorState = 'bg-ABSENT'
         }
         setStyleState(nextState)
     }
 
-    function flipMeUp(){
+    function flipMyRow(){
         setLoading(true)
         setRowStyle({...rowStyle, flipRow : currRow})
         setTimeout(() => {
@@ -168,6 +168,10 @@ export function GCProvider({ children }) {
             setStyleState(nextState)
             flipReset(i)
         }
+    }
+
+    function flipTest(){
+        setRowStyle({...rowStyle, flipRow : currRow})
     }
 
     async function animateInvalidRow(){

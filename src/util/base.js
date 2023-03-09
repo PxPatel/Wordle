@@ -46,7 +46,7 @@ export const createStyleState = () => {
         let box = []
         for(let k = 0; k < 1; k++){
           box.push('bg-EMPTY')
-          box.push(' ')
+          box.push('')
         }
         row.push(box)
       }

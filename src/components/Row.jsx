@@ -4,7 +4,7 @@ import Box from './Box'
 
 const Row = ({ stateRow, rowNum}) => {
 
-    const { styleState, invalidRow, flipRow, rowStyle } = useGameState()
+    const { styleState, rowStyle } = useGameState()
 
     const rowRef = useRef(null)
 
@@ -16,7 +16,7 @@ const Row = ({ stateRow, rowNum}) => {
                 // boxNum = { i }
                 isInvalid = {rowStyle.invalidRow === rowNum}
                 fill= { styleState[rowNum][i][0] } 
-                toPop = { styleState[rowNum][i][1]}
+                toFlip = { styleState[rowNum][i][1]}
                 key= { i } />
         })
         return row
@@ -31,7 +31,7 @@ const Row = ({ stateRow, rowNum}) => {
 
     return (
       <div 
-        className={`flex place-content-center h-fit ${ flipRow === rowNum ? 'animate-flip' : ''}`}
+        className={`flex place-content-center h-fit ${ rowStyle.flipRow === rowNum ? 'animate-flip' : ''}`}
         ref = { rowRef }> 
           { createRow()}
       </div>

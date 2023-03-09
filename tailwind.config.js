@@ -37,7 +37,7 @@ module.exports = {
       animation: {
         pop: 'Pop 100ms ease-in-out 1',
         shake: 'Shake 150ms ease-in-out 2', //Make iteration 2 times. Make Duration 200ms
-        flip: 'Flip 750ms ease-in-out 1'
+        flip: 'Flip 150ms ease-in-out 1'
       }
     }
   },

@@ -22,6 +22,7 @@ export function GCProvider({ children }) {
     const [rowStyle, setRowStyle] = useState({ invalidRow : null, flipRow : null})
 
     const invalidDelay = 300 
+    const flipDelay = 750
 
     useEffect(() => {
         async function getWord(){
@@ -96,8 +97,9 @@ export function GCProvider({ children }) {
         const validWord = await wordAPI(gameState[currRow].join("")) || false
         if(validWord){
             colorMeUp()
-            flipMeUp()
-            nextRow()
+            // flipMeUp()
+            flipMyBoxes()
+            // nextRow()
         }
         else{
             animateInvalidRow()
@@ -119,11 +121,7 @@ export function GCProvider({ children }) {
             }
         **/
         //[a, p, p, l, y]   G
-
         //[G, G, E, G, E] 
-        //Check if in arr ? row[i] = Yellow
-        //Check if correct idx ? row[i] = Green
-
 
         //Iterate and delete letters that are on perfect index
         for( let i = 0; i < guessArr.length; i++){
@@ -142,28 +140,37 @@ export function GCProvider({ children }) {
 
     function flipMeUp(){
         setLoading(true)
-
-        setFlipRow(currRow)
-
-        setTimeout(() => { 
-
-
-            setFlipRow(null)
-            setLoading(false) 
-        }, 1000)
+        setRowStyle({...rowStyle, flipRow : currRow})
+        setTimeout(() => {
+            setRowStyle({...rowStyle, flipRow : null})
+            setLoading(false)
+        }, flipDelay)
     }
 
-    function flipTest(){
-        
+    async function flipMyBoxes(){
+
+        const nextState = deepCopify(styleState)
+        const row = nextState[currRow]
+
+        const flipReset = (key) => {
+            setTimeout(() => {
+                row[key][1] = ''
+            }, 1000)
+        }
+
+        for(let i = 0; i < row.length; i++){
+
+            row[i][1] = 'animate-flip'
+            await delay(1000)
+            console.log("Done Waiting")
+            flipReset(i)
+            
+        }
     }
 
     async function animateInvalidRow(){
 
-        // setInvalidRow(currRow)
-        // setTimeout(() => setInvalidRow(null), invalidDelay)
-
         setRowStyle({...rowStyle, invalidRow : currRow})
-        
         setTimeout(() => {
             setRowStyle({...rowStyle, invalidRow : null})
         }, invalidDelay)
@@ -178,8 +185,8 @@ export function GCProvider({ children }) {
         styleState,
         inPlay,
         loading,
-        invalidRow,
-        flipRow,
+        // invalidRow,
+        // flipRow,
         rowStyle,
         handleKeyChanges,
     }

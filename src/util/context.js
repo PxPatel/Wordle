@@ -12,13 +12,14 @@ export function GCProvider({ children }) {
 
     const [gameState, setGameState] = useState(createGameState)
     const [styleState, setStyleState] = useState(createStyleState)
-    // console.table(styleState)
     const [realWord, setRealWord] = useState() //Try storing in Local Memory
     const [inPlay, setInPlay] = useState(true)
     const [loading, setLoading] = useState()
     const [currRow, setCurrRow] = useState(0)
     const [currBox, setCurrBox] = useState(0)
     const [invalidRow, setInvalidRow] = useState(null)
+    const [flipRow, setFlipRow] = useState(null)
+    const [rowStyle, setRowStyle] = useState({ invalidRow : null, flipRow : null})
 
     const invalidDelay = 300 
 
@@ -37,32 +38,25 @@ export function GCProvider({ children }) {
     function handleKeyChanges(e){
         const key = e.key
         const isLetter = key.length === 1 && /^[A-Za-z]*$/.test(key)
-        switch(isLetter){
-            case(true):
-                updateLetter(key.toUpperCase())
-                break
-            case(false):
-                if(currBox > 0 && key === 'Backspace'){
-                    deleteLetter()
-                }
-                else if(currBox === 5 && key === 'Enter'){
-                    checkValidity()
-                }
-                break
-            default:
-                break
+
+        if(isLetter && currBox < 5){
+            updateLetter(key.toUpperCase())
+        }
+        else if(key === 'Backspace' && currBox > 0){
+            deleteLetter()
+        }
+        else if(key === 'Enter' && currBox === 5){
+            checkValidity()
         }
     }
 
-    function updateLetter(key) {
-        if(currBox < 5){
-            const nextState = deepCopify(gameState)
-            nextState[currRow][currBox] = key
+    function updateLetter(key) { 
+        const nextState = deepCopify(gameState)
+        nextState[currRow][currBox] = key
 
-            // addPop(currRow, currBox)
-            setGameState(nextState)
-            setCurrBox(currBox+1)
-        }
+        // addPop(currRow, currBox)
+        setGameState(nextState)
+        setCurrBox(currBox+1)
     }
 
     // const addPop = (cRow, cBox) => {
@@ -84,11 +78,6 @@ export function GCProvider({ children }) {
     function deleteLetter(){
         const nextState = deepCopify(gameState)
         nextState[currRow][currBox-1] = ""
-
-        // const nextStyleState = deepCopify(styleState)
-        // nextStyleState[currRow][currBox-1][1] = ' '
-
-        // setStyleState(nextStyleState)
         setGameState(nextState)
         setCurrBox(currBox-1)
     }
@@ -107,6 +96,7 @@ export function GCProvider({ children }) {
         const validWord = await wordAPI(gameState[currRow].join("")) || false
         if(validWord){
             colorMeUp()
+            flipMeUp()
             nextRow()
         }
         else{
@@ -150,28 +140,33 @@ export function GCProvider({ children }) {
         setStyleState(nextState)
     }
 
+    function flipMeUp(){
+        setLoading(true)
+
+        setFlipRow(currRow)
+
+        setTimeout(() => { 
+
+
+            setFlipRow(null)
+            setLoading(false) 
+        }, 1000)
+    }
+
+    function flipTest(){
+        
+    }
+
     async function animateInvalidRow(){
-        // var i = 1
-        // const blinkTimes = 2
 
         // setInvalidRow(currRow)
+        // setTimeout(() => setInvalidRow(null), invalidDelay)
 
-        // const intervalId = setInterval(() => {
-        //     console.log("Stopped")
-        //     setInvalidRow(null)
-
-        //     if(i !== blinkTimes){
-        //         i++
-        //         console.log("Restarted")
-        //         setTimeout(() => { setInvalidRow(currRow) },100)
-        //     }
-        //     else{
-        //         clearInterval(intervalId)
-        //     }
-        // }, 150)
-
-        setInvalidRow(currRow)
-        setTimeout(() => setInvalidRow(null), invalidDelay)
+        setRowStyle({...rowStyle, invalidRow : currRow})
+        
+        setTimeout(() => {
+            setRowStyle({...rowStyle, invalidRow : null})
+        }, invalidDelay)
 
         // https://stackoverflow.com/questions/22252214/making-text-blink-a-certain-number-of-times
         // https://dev.to/lydiahallie/javascript-visualized-promises-async-await-5gke
@@ -184,6 +179,8 @@ export function GCProvider({ children }) {
         inPlay,
         loading,
         invalidRow,
+        flipRow,
+        rowStyle,
         handleKeyChanges,
     }
 

@@ -5,14 +5,14 @@ import { useGameState } from '../util/context'
 const Game = () => {
   
   const { gameState, inPlay, loading, handleKeyChanges } = useGameState()
-  const [, updateState] = useState()
+  const [focusOnMe, updateState] = useState()
   const gameRef = useRef(null);
 
   useEffect(() => {
     if (gameRef.current) {
       gameRef.current.focus();
     }
-  });
+  }, [focusOnMe]);
 
   const forceUpdate = React.useCallback(() => updateState({}), [])
 

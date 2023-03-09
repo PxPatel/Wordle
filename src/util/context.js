@@ -153,18 +153,20 @@ export function GCProvider({ children }) {
         const row = nextState[currRow]
 
         const flipReset = (key) => {
+            const nextRow = deepCopify(row)
+            nextRow[key][1] = ''
+
             setTimeout(() => {
-                row[key][1] = ''
-            }, 1000)
+                console.log(key)
+                console.table(nextRow)
+                setStyleState([...styleState, styleState[currRow] = nextRow])
+            }, 1500)
         }
 
         for(let i = 0; i < row.length; i++){
-
             row[i][1] = 'animate-flip'
-            await delay(1000)
-            console.log("Done Waiting")
+            setStyleState(nextState)
             flipReset(i)
-            
         }
     }
 

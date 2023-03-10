@@ -59,21 +59,6 @@ export function GCProvider({ children }) {
         setCurrBox(currBox+1)
     }
 
-    // const addPop = (cRow, cBox) => {
-    //     const nextStyleState = deepCopify(styleState)
-    //     nextStyleState[cRow][cBox][1] = 'animate-pop'
-
-    //     setStyleState(nextStyleState)
-    //     console.log(cRow + " " + cBox + "Its Popping")
-    //     removePop(cRow, cBox, nextStyleState)
-    // }
-
-    // const removePop = async (cRow, cBox, nextStyleState) =>{
-    //     await delay(1000)
-    //     nextStyleState[cRow][cBox][1] = ' '
-    //     setStyleState(nextStyleState)
-    // }
-
 
     function deleteLetter(){
         const nextState = deepCopify(gameState)
@@ -97,7 +82,6 @@ export function GCProvider({ children }) {
         if(validWord){
             colorMeUp()
             flipMyRow()
-            // flipMyBoxes()
             nextRow()
         }
         else{
@@ -138,22 +122,27 @@ export function GCProvider({ children }) {
     }
 
     function flipMyRow(){
-        setLoading(true)
+        console.table(styleState[0])
 
-        const nextStyleState = deepCopify(styleState)
-        const original = deepCopify(styleState)
-        const row = nextStyleState[currRow]
+        // console.table(styleState[currRow])
+        // setLoading(true)
 
-        for(let el of row){
-            console.log(el)
-            el.flipState = true
-        }   
+        // const nextStyleState = deepCopify(styleState)
+        // const original = deepCopify(styleState)
+        // console.log(original)
 
-        setStyleState(nextStyleState)
-        setTimeout(() => {
-            setStyleState(original)
-            setLoading(false)
-        }, flipDelay)
+        // const newRow = nextStyleState[currRow].map((elem, index) => {
+        //     elem.flipState = true
+        // })
+        // nextStyleState[currRow] = newRow
+
+        // console.log(nextStyleState)
+
+        // setStyleState(nextStyleState)
+        // setTimeout(() => {
+        //     setStyleState(original)
+        //     setLoading(false)
+        // }, flipDelay)
     }
 
     function animateInvalidRow(){

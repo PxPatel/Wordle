@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+
+const plugin = require('tailwindcss/plugin')
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
@@ -21,20 +23,52 @@ module.exports = {
         Pop: {
           '0%': {transform : 'scale(.75)'},
           '50%': {transform : 'scale(1.1)'},
-          // '100%': {transform : 'scale(1)'}
         },
 
         Shake: {
           '0%': {transform : 'translateX(-2px)'},
           '40%': {transform : 'translateX(4px)'},
+        },
+
+        Flip: {
+          "100%" : {transform : 'scaleY(-1)'}
         }
       },
 
       animation: {
         pop: 'Pop 100ms ease-in-out 1',
-        shake: 'Shake 150ms ease-in-out 2' //Make iteration 2 times. Make Duration 200ms
+        shake: 'Shake 150ms ease-in-out 2',
+        flip: 'Flip 300ms ease-in-out 1'
+      },
+
+      animationDelay : {
+        3000 : '3s',
+        4000 : '4s',
       }
-    }
-  },
-  plugins: [],
+    },
+
+    
+
+  }, 
+  plugins: [
+    plugin(function({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          'animation-delay': (value) => ({
+            'animation-delay' : value
+          }),
+        },
+        { values: theme('animationDelay') }
+      )
+    }, {
+      theme : {
+        animationDelay : {
+          100: '100ms',
+          150: '150ms',
+          200: '200ms',
+          2000: '2s',
+        },
+      }
+    })
+  ],
 }

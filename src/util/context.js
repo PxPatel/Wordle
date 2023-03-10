@@ -17,12 +17,11 @@ export function GCProvider({ children }) {
     const [loading, setLoading] = useState()
     const [currRow, setCurrRow] = useState(0)
     const [currBox, setCurrBox] = useState(0)
-    // const [invalidRow, setInvalidRow] = useState(null)
-    // const [flipRow, setFlipRow] = useState(null)
-    const [rowStyle, setRowStyle] = useState({ invalidRow : null, flipRow : null})
+    const [invalidRow, setInvalidRow] = useState()
+    const [rowStyle, setRowStyle] = useState({ flipRow : null, delay: 150})
 
     const invalidDelay = 300 
-    const flipDelay = 1500
+    const flipDelay = 10000
 
     useEffect(() => {
         async function getWord(){
@@ -140,45 +139,31 @@ export function GCProvider({ children }) {
 
     function flipMyRow(){
         setLoading(true)
-        setRowStyle({...rowStyle, flipRow : currRow})
+
+        const nextStyleState = deepCopify(styleState)
+        const original = deepCopify(styleState)
+        const row = nextStyleState[currRow]
+
+        for(let el of row){
+            console.log(el)
+            el.flipState = true
+        }   
+
+        setStyleState(nextStyleState)
         setTimeout(() => {
-            setRowStyle({...rowStyle, flipRow : null})
+            setStyleState(original)
             setLoading(false)
         }, flipDelay)
     }
 
-    async function flipMyBoxes(){
-
-        const nextState = deepCopify(styleState)
-        const row = nextState[currRow]
-
-        const flipReset = (key) => {
-            const nextRow = deepCopify(row)
-            nextRow[key][1] = ''
-
-            setTimeout(() => {
-                console.log(key)
-                console.table(nextRow)
-                setStyleState([...styleState, styleState[currRow] = nextRow])
-            }, 1500)
-        }
-
-        for(let i = 0; i < row.length; i++){
-            row[i][1] = 'animate-flip'
-            setStyleState(nextState)
-            flipReset(i)
-        }
-    }
-
-    function flipTest(){
-        setRowStyle({...rowStyle, flipRow : currRow})
-    }
-
-    async function animateInvalidRow(){
+    function animateInvalidRow(){
 
         setRowStyle({...rowStyle, invalidRow : currRow})
+        
+        setInvalidRow(currRow)
+        
         setTimeout(() => {
-            setRowStyle({...rowStyle, invalidRow : null})
+            setInvalidRow(null)
         }, invalidDelay)
 
         // https://stackoverflow.com/questions/22252214/making-text-blink-a-certain-number-of-times
@@ -191,8 +176,7 @@ export function GCProvider({ children }) {
         styleState,
         inPlay,
         loading,
-        // invalidRow,
-        // flipRow,
+        invalidRow,
         rowStyle,
         handleKeyChanges,
     }

@@ -16,10 +16,30 @@ const Row = ({ stateRow, rowNum}) => {
                 isInvalid = {invalidRow === rowNum}
                 fill= { styleState[rowNum][i].colorState }
                 toFlip= { styleState[rowNum][i].flipStatus }
+                flipDelay= { handleDelay(i) }
                 key= { i } />
         })
         return row
-    }   
+    }
+
+    const handleDelay = (boxNum) => {
+      var delay;
+      if(boxNum === 0){
+        return 'animation-delay-[0ms]'
+      }
+      else if(boxNum === 1){
+        return 'animation-delay-[150ms]'
+      }
+      else if(boxNum === 2){
+        return 'animation-delay-[300ms]'
+      }
+      else if(boxNum === 3){
+        return 'animation-delay-[450ms]'
+      }
+      else if(boxNum === 4){
+        return 'animation-delay-[600ms]'
+      }
+    }
   
     return (
       <div 

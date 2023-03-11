@@ -53,17 +53,12 @@ export const createTestStyleState = () => {
   for(let i  = 0; i < 6; i++) {
     let row = []
     for(let j = 0; j < 5; j++) {
-      row.push({
-        colorState : 'bg-EMPTY',
-        toFlip : false
-      })
+      row.push(['bg-EMPTY'])
     }
     arr.push(row)
   }
   return arr
 }
-
-
 
 export const createColorState = () => {
   let arr = []
@@ -77,14 +72,14 @@ export const createColorState = () => {
   return arr
 }
 
-  export const createGameState = () => {
-    let arr = []
-    for(let i  = 0; i < 6; i++) {
-      let row = []
-        for(let j = 0; j < 5; j++) {
-            row.push("")
-          }
-          arr.push(row)
-      }
-    return arr
-  }
+export const createGameState = () => {
+  let arr = []
+  for(let i  = 0; i < 6; i++) {
+    let row = []
+      for(let j = 0; j < 5; j++) {
+          row.push("")
+        }
+        arr.push(row)
+    }
+  return arr
+}

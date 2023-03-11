@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState} from "react"
 import { createContext } from "react"
 import { createStyleState, createGameState, deepCopify, dictify, randomWordAPI, wordAPI, createTestStyleState } from "./base"
-import deepCloneMap from 'deep-clone-map'
 
 const GameContext = createContext()
 
@@ -22,7 +21,7 @@ export function GCProvider({ children }) {
     const [rowStyle, setRowStyle] = useState({ invalidRow : null, flipRow : null })
 
     const invalidDelay = 300 
-    const flipDelay = 2500
+    const flipDelay = 1800
 
     useEffect(() => {
         async function getWord(){

@@ -1,8 +1,6 @@
-import React, { useCallback, useEffect, useRef } from 'react'
-import { useGameState } from '../util/context'
+import React, {useEffect, useRef } from 'react'
 
-
-const Box = ({ letter, boxNum, isInvalid, fill, toFlip, flipDelay}) => {
+const Box = ({ letter, isInvalid, fill, toFlip, flipDelay}) => {
 
   const boxRef = useRef()
 
@@ -22,12 +20,11 @@ const Box = ({ letter, boxNum, isInvalid, fill, toFlip, flipDelay}) => {
       }
     }
     handlePop()
-    // handleDelay()
   }, [letter])
   
   return (
     <div 
-      className= {` ${flipDelay} min-w-[60px] min-h-[60px] m-1 flex place-content-center  place-items-center border-box font-TMS text-[2rem] text-white border-2 ${letter ? "border-[#3a3a3c]" : "border-[#565758]"} ${isInvalid ? 'animate-shake border-red-700' : ''} ${ fill } ${ toFlip ? 'animate-flip' : '' } `}
+      className= {`min-w-[60px] min-h-[60px] m-1 flex place-content-center place-items-center border-box font-TMS text-[2rem] text-white border-2 ${letter ? "border-[#3a3a3c]" : "border-[#565758]"} ${isInvalid ? 'animate-shake border-red-700' : ''} ${fill} ${ toFlip ? 'animate-flip' : '' } ${flipDelay}`}
       ref = {boxRef}>      
        {letter} 
     </div>

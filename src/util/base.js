@@ -37,22 +37,33 @@ export const wordAPI = async(word) => {
 }
 
 export const createStyleState = () => {
-
-  
-
   let arr = []
   for(let i  = 0; i < 6; i++) {
     let row = []
     for(let j = 0; j < 5; j++) {
-      row.push({
-                colorState : 'bg-EMPTY',
-                flipState: false
-              })
+      row.push('bg-EMPTY')
     }
     arr.push(row)
   }
   return arr
 }
+
+export const createTestStyleState = () => {
+  let arr = []
+  for(let i  = 0; i < 6; i++) {
+    let row = []
+    for(let j = 0; j < 5; j++) {
+      row.push({
+        colorState : 'bg-EMPTY',
+        toFlip : false
+      })
+    }
+    arr.push(row)
+  }
+  return arr
+}
+
+
 
 export const createColorState = () => {
   let arr = []

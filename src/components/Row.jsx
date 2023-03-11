@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import { useGameState } from '../util/context'
 import Box from './Box'
 
@@ -14,36 +14,35 @@ const Row = ({ stateRow, rowNum}) => {
                 letter= { spite } 
                 boxNum= { i }
                 isInvalid = {invalidRow === rowNum}
-                fill= { styleState[rowNum][i].colorState }
-                toFlip= { styleState[rowNum][i].flipStatus }
-                flipDelay= { handleDelay(i) }
+                fill= { styleState[rowNum][i] }
+                toFlip= { rowStyle.flipRow === rowNum }
+                flipDelay= { determineDelay(i) }
                 key= { i } />
         })
         return row
     }
 
-    const handleDelay = (boxNum) => {
-      var delay;
-      if(boxNum === 0){
+    const determineDelay = (i) => {
+      if(i === 0){
         return 'animation-delay-[0ms]'
       }
-      else if(boxNum === 1){
+      else if(i === 1){
         return 'animation-delay-[150ms]'
       }
-      else if(boxNum === 2){
+      else if(i === 2){
         return 'animation-delay-[300ms]'
       }
-      else if(boxNum === 3){
+      else if(i === 3){
         return 'animation-delay-[450ms]'
       }
-      else if(boxNum === 4){
+      else if(i === 4){
         return 'animation-delay-[600ms]'
       }
     }
   
     return (
       <div 
-        className={`flex place-content-center h-fit ${ false && rowStyle.flipRow === rowNum ? 'animate-flip' : ''}`}
+        className={`flex place-content-center h-fit`}
         ref = { rowRef }> 
           { createRow()}
       </div>

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState} from "react"
 import { createContext } from "react"
-import { createStyleState, createGameState, deepCopify, dictify, randomWordAPI, wordAPI } from "./base"
+import { createStyleState, createGameState, deepCopify, dictify, randomWordAPI, wordAPI, createTestStyleState } from "./base"
+import deepCloneMap from 'deep-clone-map'
 
 const GameContext = createContext()
 
@@ -18,10 +19,10 @@ export function GCProvider({ children }) {
     const [currRow, setCurrRow] = useState(0)
     const [currBox, setCurrBox] = useState(0)
     const [invalidRow, setInvalidRow] = useState()
-    const [rowStyle, setRowStyle] = useState({ flipRow : null, delay: 150})
+    const [rowStyle, setRowStyle] = useState({ invalidRow : null, flipRow : null })
 
     const invalidDelay = 300 
-    const flipDelay = 10000
+    const flipDelay = 2500
 
     useEffect(() => {
         async function getWord(){
@@ -53,8 +54,6 @@ export function GCProvider({ children }) {
     function updateLetter(key) { 
         const nextState = deepCopify(gameState)
         nextState[currRow][currBox] = key
-
-        // addPop(currRow, currBox)
         setGameState(nextState)
         setCurrBox(currBox+1)
     }
@@ -90,67 +89,39 @@ export function GCProvider({ children }) {
     }
 
     function colorMeUp(){
+
         const nextState = deepCopify(styleState)
         const row = nextState[currRow]
-        
+
         const guessArr = [...gameState[currRow]]
         const realDict = dictify(realWord)
-
-        //[a, p, a, l, e]   R
-        /**
-         * {
-            2: a,
-            4: e
-            }
-        **/
-        //[a, p, p, l, y]   G
-        //[G, G, E, G, E] 
 
         //Iterate and delete letters that are on perfect index
         for( let i = 0; i < guessArr.length; i++){
             if( guessArr[i] === realDict.get(i)){
-                row[i].colorState = 'bg-CORRECT'
+                row[i] = 'bg-CORRECT'
                 realDict.delete(i)
             }
         }
-
         const mapValues = [...realDict.values()]
         for(const key of realDict.keys()){
-            mapValues.includes(guessArr[key]) ? row[key].colorState = 'bg-PRESENT' : row[key].colorState = 'bg-ABSENT'
+            mapValues.includes(guessArr[key]) ? row[key] = 'bg-PRESENT' : row[key] = 'bg-ABSENT'
         }
-        setStyleState(nextState)
+        setStyleState(nextState)        
     }
 
     function flipMyRow(){
-        console.table(styleState[0])
+        setLoading(true)
 
-        // console.table(styleState[currRow])
-        // setLoading(true)
-
-        // const nextStyleState = deepCopify(styleState)
-        // const original = deepCopify(styleState)
-        // console.log(original)
-
-        // const newRow = nextStyleState[currRow].map((elem, index) => {
-        //     elem.flipState = true
-        // })
-        // nextStyleState[currRow] = newRow
-
-        // console.log(nextStyleState)
-
-        // setStyleState(nextStyleState)
-        // setTimeout(() => {
-        //     setStyleState(original)
-        //     setLoading(false)
-        // }, flipDelay)
+        setRowStyle({...rowStyle, flipRow : currRow})
+        setTimeout(() => {
+            setRowStyle({...rowStyle, flipRow : null})
+            setLoading(false)
+        }, flipDelay)
     }
 
-    function animateInvalidRow(){
-
-        setRowStyle({...rowStyle, invalidRow : currRow})
-        
+    function animateInvalidRow(){        
         setInvalidRow(currRow)
-        
         setTimeout(() => {
             setInvalidRow(null)
         }, invalidDelay)

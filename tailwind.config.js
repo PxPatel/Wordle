@@ -2,7 +2,6 @@
 
 const plugin = require('tailwindcss/plugin')
 module.exports = {
-  mode: 'jit',
   content: [
     "./src/components/**/*.{js,jsx,ts,tsx}",
     "./src/util/**/*.{js,jsx,ts,tsx}",
@@ -44,18 +43,14 @@ module.exports = {
         shake: 'Shake 150ms ease-in-out 2',
         flip: 'Flip 300ms ease-in-out 1'
       },
-
-      animationDelay : {
-        3000 : '3s',
-        4000 : '4s',
-      }
     },
 
     
 
   }, 
   plugins: [
-    plugin(function({ matchUtilities, theme }) {
+    plugin(function({ matchUtilities, addComponents, theme }) {
+      //Animation delay utility Class
       matchUtilities(
         {
           'animation-delay': (value) => ({
@@ -64,7 +59,20 @@ module.exports = {
         },
         { values: theme('animationDelay') }
       )
-    }, {
+
+      //Component plugin for standard flexbox
+      addComponents({
+          '.centerStage' : {
+
+          }
+
+        }
+      )
+    },
+    //End of utility
+    
+    //Default values of plugins
+    {
       theme : {
         animationDelay : {
           100: '100ms',
@@ -74,5 +82,6 @@ module.exports = {
         },
       }
     })
+    //End of Plugin
   ],
 }

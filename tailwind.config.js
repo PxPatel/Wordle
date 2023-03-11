@@ -2,6 +2,14 @@
 
 const plugin = require('tailwindcss/plugin')
 module.exports = {
+
+  //Safelist utility classes to use variable dynamic styles
+  safelist: [
+    {
+      pattern: /animation-delay-(0|150|300|450|600)/,
+    },
+  ],
+
   content: [
     "./src/components/**/*.{js,jsx,ts,tsx}",
     "./src/util/**/*.{js,jsx,ts,tsx}",
@@ -34,14 +42,16 @@ module.exports = {
         },
 
         Flip: {
-          "100%" : {transform : 'scaleY(-1)'}
+          "100%" : {
+            transform : 'scaleY(-1)'
+          }
         }
       },
 
       animation: {
         pop: 'Pop 100ms ease-in-out 1',
         shake: 'Shake 150ms ease-in-out 2',
-        flip: 'Flip 300ms ease-in-out 1'
+        flip: 'Flip 1000ms ease-in-out 1'
       },
     },
 
@@ -61,24 +71,26 @@ module.exports = {
       )
 
       //Component plugin for standard flexbox
-      addComponents({
-          '.centerStage' : {
-
+      addComponents(
+        {
+          '.centerStage' : { 
+            'display' : 'flex',
+            'place-content' : 'center',
           }
-
-        }
+        },
       )
     },
-    //End of utility
+    //End of Additions
     
     //Default values of plugins
     {
       theme : {
         animationDelay : {
-          100: '100ms',
+          0: '0ms',
           150: '150ms',
-          200: '200ms',
-          2000: '2s',
+          300: '300ms',
+          450: '450ms',
+          600: '600ms',
         },
       }
     })

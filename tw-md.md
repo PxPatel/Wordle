@@ -2,8 +2,19 @@
 
 const plugin = require('tailwindcss/plugin')
 module.exports = {
+
+  //Safelist utility classes to use variable dynamic styles
+  safelist: [
+    {
+      pattern: /animation-delay-(0|150|300|450|600)/,
+    },
+  ],
+
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
+    "./src/components/**/*.{js,jsx,ts,tsx}",
+    "./src/util/**/*.{js,jsx,ts,tsx}",
+    "./src/App.js",
+    "./public/index.html"
   ],
   theme: {
     extend: {
@@ -31,27 +42,25 @@ module.exports = {
         },
 
         Flip: {
-          "100%" : {transform : 'scaleY(-1)'}
+          "100%" : {
+            transform : 'scaleY(-1)'
+          }
         }
       },
 
       animation: {
         pop: 'Pop 100ms ease-in-out 1',
         shake: 'Shake 150ms ease-in-out 2',
-        flip: 'Flip 300ms ease-in-out 1'
+        flip: 'Flip 1000ms ease-in-out 1'
       },
-
-      animationDelay : {
-        3000 : '3s',
-        4000 : '4s',
-      }
     },
 
     
 
   }, 
   plugins: [
-    plugin(function({ matchUtilities, theme }) {
+    plugin(function({ matchUtilities, addComponents, theme }) {
+      //Animation delay utility Class
       matchUtilities(
         {
           'animation-delay': (value) => ({
@@ -60,15 +69,31 @@ module.exports = {
         },
         { values: theme('animationDelay') }
       )
-    }, {
+
+      //Component plugin for standard flexbox
+      addComponents(
+        {
+          '.centerStage' : { 
+            'display' : 'flex',
+            'place-content' : 'center',
+          }
+        },
+      )
+    },
+    //End of Additions
+    
+    //Default values of plugins
+    {
       theme : {
         animationDelay : {
-          100: '100ms',
+          0: '0ms',
           150: '150ms',
-          200: '200ms',
-          2000: '2s',
+          300: '300ms',
+          450: '450ms',
+          600: '600ms',
         },
       }
     })
+    //End of Plugin
   ],
 }

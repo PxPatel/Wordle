@@ -3,6 +3,11 @@ import NavBar from './components/NavBar';
 import Game from './components/Game';
 import { GCProvider } from './util/context';
 
+
+//TODO:
+//ADD DARK MODE
+//Possibly using Ref
+
 function App() {
   return (
      <GCProvider>

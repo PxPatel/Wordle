@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FLIP_TILE_DELAY } from '../util/constants'
 import { useGameState } from '../util/context'
 import Box from './Box'
@@ -16,7 +16,8 @@ const Row = ({ stateRow, rowNum}) => {
                 isInvalid = {rowStyle.invalidRow === rowNum}
                 fill= { styleState[rowNum][i] }
                 toFlip= { rowStyle.flipRow === rowNum }
-                flipDelay= { rowStyle.flipRow === rowNum ? `animation-delay-${FLIP_TILE_DELAY*i}`: ''}
+                toBounce= { rowStyle.bounceRow === rowNum }
+                flipDelay= { rowStyle.flipRow === rowNum  || rowStyle.bounceRow === rowNum  ? `animation-delay-${FLIP_TILE_DELAY*i}`: ''}
                 key= { i } />
         })
         return row
@@ -28,6 +29,5 @@ const Row = ({ stateRow, rowNum}) => {
       </div>
   )
 }
-  
 
 export default Row

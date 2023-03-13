@@ -13,9 +13,11 @@ export function GCProvider({ children }) {
     const [gameState, setGameState] = useState(createGameState)
     const [styleState, setStyleState] = useState(createStyleState)
     const [realWord, setRealWord] = useState()
+
+    //TODO: Better name for states
     const [pauses, setPauses] = useState({inPlay : true, loading : false})
     const [pos, setPos] = useState({currRow : 0, currBox : 0})
-    const [rowStyle, setRowStyle] = useState({ invalidRow : null, flipRow : null, flipStage : '' })
+    const [rowStyle, setRowStyle] = useState({ invalidRow : null, flipRow : null, bounceRow : null })
 
     useEffect(() => {
         const getWord = async() =>{
@@ -88,7 +90,7 @@ export function GCProvider({ children }) {
     }
 
     function nextRow(){
-        if(pos.currRow <= 5){ 
+        if(pos.currRow < 6){ 
             if(pos.currRow + 1 === 6){
                 setPauses({...pauses, inPlay : false})
             }
@@ -122,11 +124,15 @@ export function GCProvider({ children }) {
                 row[i] = 'bg-CORRECT'
                 realDict.delete(i)
             }
-        }
+        }    
         const mapValues = [...realDict.values()]
         for(const key of realDict.keys()){
-            mapValues.includes(guessArr[key]) ? row[key] = 'bg-PRESENT' : row[key] = 'bg-ABSENT'
-        }
+            if(mapValues.includes(guessArr[key])){
+                row[key] = 'bg-PRESENT' 
+                mapValues.splice(mapValues.indexOf(guessArr[key]),1)
+            }
+            else{ row[key] = 'bg-ABSENT' }
+        }       
         setStyleState(nextState)        
     }
 

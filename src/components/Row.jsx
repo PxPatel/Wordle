@@ -1,4 +1,5 @@
 import React from 'react'
+import { FLIP_TILE_DELAY } from '../util/constants'
 import { useGameState } from '../util/context'
 import Box from './Box'
 
@@ -15,7 +16,7 @@ const Row = ({ stateRow, rowNum}) => {
                 isInvalid = {rowStyle.invalidRow === rowNum}
                 fill= { styleState[rowNum][i] }
                 toFlip= { rowStyle.flipRow === rowNum }
-                flipDelay= { rowStyle.flipRow === rowNum ? `animation-delay-${150*i}`: ''}
+                flipDelay= { rowStyle.flipRow === rowNum ? `animation-delay-${FLIP_TILE_DELAY*i}`: ''}
                 key= { i } />
         })
         return row

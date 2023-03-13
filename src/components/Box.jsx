@@ -1,19 +1,27 @@
-import React, {useEffect, useRef } from 'react'
+import React, {useEffect, useRef, useState } from 'react'
 
-const Box = ({ letter, isInvalid, fill, toFlip, flipDelay}) => {
+const Box = ({ letter, isInvalid, fill, toFlip, flipDelay, boxNum, rowNum}) => {
 
   const boxRef = useRef()
+  const [colorFill, setColorFill] = useState('')
+
+
+  //Counting number of renders for component
+  // useEffect(() => {
+  //   if(boxNum === 0 && rowNum === 0)
+  //     console.count(`${letter}: `)
+  // })
 
   useEffect(() => {
     const handlePop = () => {
       if (letter !== "") {
-        const newClass = "animate-pop " + boxRef.current.className
+        const newClass = boxRef.current.className  + " animate-pop "
         boxRef.current.className = newClass
         setTimeout(() => {
           let idx = (boxRef.current.className).indexOf("animate-pop")
           let newClass = boxRef.current.className
           if (idx !== -1) {
-            newClass = (boxRef.current.className).slice(0, idx) + (boxRef.current.className).slice(idx + 11)
+            newClass = (boxRef.current.className).slice(0, idx) + (boxRef.current.className).slice(idx + 'animate-pop'.length)
           }
           boxRef.current.className = newClass
         }, 100)
@@ -21,10 +29,24 @@ const Box = ({ letter, isInvalid, fill, toFlip, flipDelay}) => {
     }
     handlePop()
   }, [letter])
-  
+
+  useEffect(() =>
+  {
+    function toggleColor() {
+      if(fill === 'bg-EMPTY'){ setColorFill(prev => fill) }
+      else if(fill !== 'bg-EMPTY'){
+        setTimeout(() => { 
+          setColorFill( prev => fill) 
+        }, 500 + (flipDelay.slice(16,19) * 1))
+      }
+    }
+    toggleColor()
+  }, [fill, flipDelay])
+
   return (
     <div 
-      className= {`min-w-[60px] min-h-[60px] m-1 flex place-content-center place-items-center border-box font-TMS text-[2rem] text-white border-2 ${letter ? "border-[#3a3a3c]" : "border-[#565758]"} ${isInvalid ? 'animate-shake border-red-700' : ''} ${fill} ${ toFlip ? 'animate-flip' : '' } ${flipDelay}`}
+      className= {`min-w-[60px] min-h-[60px] m-1 centerStage place-items-center border-box font-TMS text-[2rem] text-white border-2 ${letter ? "border-[#3a3a3c]" : "border-[#565758]"} ${isInvalid ? 'animate-shake border-red-700' : ''} ${colorFill} ${flipDelay} ${toFlip ? 'animate-flip' : ''}`}
+
       ref = {boxRef}>      
        {letter} 
     </div>

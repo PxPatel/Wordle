@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState} from "react"
-import { createContext } from "react"
+import React, { useContext, createContext, useEffect, useState} from "react"
 import { createStyleState, createGameState, deepCopify, dictify, randomWordAPI, wordAPI } from "./base"
+import { FUll_FLIP_WAIT, INVALID_WAIT } from "./constants"
 
 const GameContext = createContext()
 
@@ -17,15 +17,11 @@ export function GCProvider({ children }) {
     const [pos, setPos] = useState({currRow : 0, currBox : 0})
     const [rowStyle, setRowStyle] = useState({ invalidRow : null, flipRow : null, flipStage : '' })
 
-    const invalidDelay = 300 
-    const flipDelay = 1800
-    // const flipDelay = 3000
-
     useEffect(() => {
         const getWord = async() =>{
             setPauses(pauses => ({...pauses, loading : true}))
             let output = await randomWordAPI()
-            setRealWord('BIRTH')
+            setRealWord(output)
             setPauses(pauses => ({...pauses, loading : false}))
             console.log(output)
         }
@@ -80,7 +76,6 @@ export function GCProvider({ children }) {
         const nextState = deepCopify(gameState)
         nextState[pos.currRow][pos.currBox] = key
         setGameState(nextState)
-        // setCurrBox(currBox+1)
         setPos({...pos, currBox : pos.currBox + 1})
     }
 
@@ -89,7 +84,6 @@ export function GCProvider({ children }) {
         const nextState = deepCopify(gameState)
         nextState[pos.currRow][pos.currBox-1] = ""
         setGameState(nextState)
-        // setCurrBox(currBox-1)
         setPos({...pos, currBox : pos.currBox - 1})
     }
 
@@ -142,14 +136,14 @@ export function GCProvider({ children }) {
         setTimeout(() => {
             setRowStyle({...rowStyle, flipRow : null})
             setPauses({...pauses, loading : false})
-        }, flipDelay)
+        }, FUll_FLIP_WAIT)
     }
 
     function animateInvalidRow(){        
         setRowStyle({...rowStyle, invalidRow : pos.currRow})
         setTimeout(() => {
             setRowStyle({...rowStyle, invalidRow : null})
-        }, invalidDelay)
+        }, INVALID_WAIT)
 
         // https://stackoverflow.com/questions/22252214/making-text-blink-a-certain-number-of-times
         // https://dev.to/lydiahallie/javascript-visualized-promises-async-await-5gke

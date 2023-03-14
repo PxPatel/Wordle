@@ -1,5 +1,5 @@
 import React from 'react'
-import { FLIP_TILE_DELAY } from '../util/constants'
+import { FLIP_DELAY_BETWEEN_TILE } from '../util/constants'
 import { useGameState } from '../util/context'
 import Box from './Box'
 
@@ -17,7 +17,7 @@ const Row = ({ stateRow, rowNum}) => {
                 fill= { styleState[rowNum][i] }
                 toFlip= { rowStyle.flipRow === rowNum }
                 toBounce= { rowStyle.bounceRow === rowNum }
-                flipDelay= { rowStyle.flipRow === rowNum  || rowStyle.bounceRow === rowNum  ? `animation-delay-${FLIP_TILE_DELAY*i}`: ''}
+                flipDelay= { rowStyle.flipRow === rowNum  || rowStyle.bounceRow === rowNum  ? `animation-delay-${FLIP_DELAY_BETWEEN_TILE*i}`: ''}
                 key= { i } />
         })
         return row

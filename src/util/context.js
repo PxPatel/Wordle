@@ -1,6 +1,6 @@
 import React, { useContext, createContext, useEffect, useState} from "react"
 import { createStyleState, createGameState, deepCopify, dictify, randomWordAPI, wordAPI } from "./base"
-import { FUll_FLIP_WAIT, INVALID_WAIT } from "./constants"
+import { FULL_FLIP_WAIT, INVALID_WAIT } from "./constants"
 
 const GameContext = createContext()
 
@@ -17,6 +17,8 @@ export function GCProvider({ children }) {
     const [loading, setLoading] = useState(false)
 
     //TODO: Better name for states
+    //TODO: Add back pauses state now knowing how to properly use useState
+    //TODO: Work on Adding toPop back to rowStyle
     const [pos, setPos] = useState({currRow : 0, currBox : 0})
     const [rowStyle, setRowStyle] = useState({ invalidRow : null, flipRow : null, bounceRow : null })
 
@@ -131,7 +133,7 @@ export function GCProvider({ children }) {
             setInPlay(prev => false)
             setTimeout(() => {
                 setRowStyle(prev => { return {...prev, bounceRow : pos.currRow} })
-            }, FUll_FLIP_WAIT)
+            }, FULL_FLIP_WAIT)
             setStyleState(nextState)        
             return
         }
@@ -153,7 +155,7 @@ export function GCProvider({ children }) {
         setTimeout(() => {
             setRowStyle(prev => { return {...prev, flipRow : null}})
             setLoading(prev => false)   
-        }, FUll_FLIP_WAIT)
+        }, FULL_FLIP_WAIT)
     }
 
     function animateInvalidRow(){        

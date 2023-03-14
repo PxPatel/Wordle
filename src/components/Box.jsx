@@ -6,13 +6,6 @@ const Box = ({ letter, isInvalid, fill, toFlip, flipDelay, boxNum, rowNum, toBou
   const boxRef = useRef()
   const [colorFill, setColorFill] = useState('')
 
-
-  //Counting number of renders for component
-  // useEffect(() => {
-  //   if(boxNum === 0 && rowNum === 0)
-  //     console.count(`${letter}: `)
-  // })
-
   useEffect(() => {
     const handlePop = () => {
       if (letter !== "") {

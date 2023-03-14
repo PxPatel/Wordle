@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { FLIP_TILE_DELAY } from '../util/constants'
 import { useGameState } from '../util/context'
 import Box from './Box'

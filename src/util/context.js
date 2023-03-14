@@ -13,18 +13,19 @@ export function GCProvider({ children }) {
     const [gameState, setGameState] = useState(createGameState)
     const [styleState, setStyleState] = useState(createStyleState)
     const [realWord, setRealWord] = useState()
+    const [inPlay, setInPlay] = useState(true)
+    const [loading, setLoading] = useState(false)
 
     //TODO: Better name for states
-    const [pauses, setPauses] = useState({inPlay : true, loading : false})
     const [pos, setPos] = useState({currRow : 0, currBox : 0})
     const [rowStyle, setRowStyle] = useState({ invalidRow : null, flipRow : null, bounceRow : null })
 
     useEffect(() => {
         const getWord = async() =>{
-            setPauses(pauses => ({...pauses, loading : true}))
+            setLoading(prev => true)
             let output = await randomWordAPI()
-            setRealWord(output)
-            setPauses(pauses => ({...pauses, loading : false}))
+            setRealWord('MEEDS')
+            setLoading(prev => false)
             console.log(output)
         }
         getWord()
@@ -90,9 +91,9 @@ export function GCProvider({ children }) {
     }
 
     function nextRow(){
-        if(pos.currRow < 6){ 
+        if(pos.currRow < 6){
             if(pos.currRow + 1 === 6){
-                setPauses({...pauses, inPlay : false})
+             setInPlay(prev => false)
             }
             setPos({currRow : pos.currRow + 1, currBox : 0})
         }
@@ -125,7 +126,19 @@ export function GCProvider({ children }) {
                 realDict.delete(i)
             }
         }    
+
+        if(realDict.size === 0){
+            console.log("YOU WIN")
+            setInPlay(prev => false)
+            setTimeout(() => {
+                setRowStyle(prev => { return {...prev, bounceRow : pos.currRow} })
+            }, FUll_FLIP_WAIT)
+            setStyleState(nextState)        
+            return
+        }
+
         const mapValues = [...realDict.values()]
+        console.log('Yellow Checks')
         for(const key of realDict.keys()){
             if(mapValues.includes(guessArr[key])){
                 row[key] = 'bg-PRESENT' 
@@ -137,18 +150,18 @@ export function GCProvider({ children }) {
     }
 
     function flipMyRow(){
-        setPauses({...pauses, loading : true})
-        setRowStyle({...rowStyle, flipRow : pos.currRow})
+        setLoading(prev => true)
+        setRowStyle(prev => { return {...prev, flipRow : pos.currRow}})
         setTimeout(() => {
-            setRowStyle({...rowStyle, flipRow : null})
-            setPauses({...pauses, loading : false})
+            setRowStyle(prev => { return {...prev, flipRow : null}})
+            setLoading(prev => false)   
         }, FUll_FLIP_WAIT)
     }
 
     function animateInvalidRow(){        
-        setRowStyle({...rowStyle, invalidRow : pos.currRow})
+        setRowStyle(prev => { return {...prev, invalidRow : pos.currRow}})
         setTimeout(() => {
-            setRowStyle({...rowStyle, invalidRow : null})
+            setRowStyle(prev => { return {...prev, invalidRow : null}})
         }, INVALID_WAIT)
 
         // https://stackoverflow.com/questions/22252214/making-text-blink-a-certain-number-of-times
@@ -159,7 +172,8 @@ export function GCProvider({ children }) {
     const value = {
         gameState,
         styleState,
-        pauses,
+        inPlay,
+        loading,
         pos,
         rowStyle,
         handleKeyChanges,

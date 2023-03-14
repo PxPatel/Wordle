@@ -45,7 +45,8 @@ const Box = ({ letter, isInvalid, fill, toFlip, flipDelay, boxNum, rowNum, toBou
 
   return (
     <div 
-      className= {`min-w-[60px] min-h-[60px] m-1 centerStage place-items-center border-box font-TMS text-[2rem] text-white border-2 ${letter ? "border-[#3a3a3c]" : "border-[#565758]"} ${isInvalid ? 'animate-shake border-red-700' : ''} ${colorFill} ${flipDelay} ${toFlip ? 'animate-flip' : ''} ${toBounce ? 'animate-bounce' : ''}`}
+      className= {`min-w-[60px] min-h-[60px] m-1 centerStage place-items-center border-box font-TMS text-[2rem] text-white border-2 ${letter ? "border-[#3a3a3c]" : "border-[#565758]"} ${isInvalid ? 'animate-shake border-red-700' : ''} ${colorFill} ${flipDelay} ${toFlip ? 'animate-flip' : ''} 
+      ${toBounce ? 'animate-bounce' : ''}`}
       ref = {boxRef}>      
        {letter} 
     </div>

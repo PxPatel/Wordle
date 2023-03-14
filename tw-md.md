@@ -5,9 +5,7 @@ module.exports = {
 
   //Safelist utility classes to use variable dynamic styles
   safelist: [
-    {
-      pattern: /animation-delay-(0|150|300|450|600)/,
-    },
+    { pattern: /animation-delay-(0|150|300|450|600|1000|2000|3000|4000)/, },
   ],
 
   content: [
@@ -42,20 +40,37 @@ module.exports = {
         },
 
         Flip: {
-          "100%" : {
-            transform : 'scaleY(-1)'
-          }
-        }
+          "50%" : {
+            transform : 'rotateX(-90deg)'
+          },
+        },
+
+        Bounce: {
+          "20%" : {
+            transform: 'translateY(-18px)',
+          },
+          "40%" : {
+            transform: 'translateY(8px)', 
+          },
+
+          "60%" : {
+            transform: 'translateY(-9px)', 
+          },
+
+          "80%" : {
+            transform: 'translateY(-4px)',
+          },
+        },
       },
 
       animation: {
         pop: 'Pop 100ms ease-in-out 1',
         shake: 'Shake 150ms ease-in-out 2',
-        flip: 'Flip 1000ms ease-in-out 1'
+        flip: 'Flip 1000ms ease-in-out 1',
+        bounce: 'Bounce 1000ms ease-in-out 1',
       },
     },
 
-    
 
   }, 
   plugins: [
@@ -91,6 +106,10 @@ module.exports = {
           300: '300ms',
           450: '450ms',
           600: '600ms',
+          1000: '1000ms',
+          2000: '2000ms',
+          3000: '3000ms',
+          4000: '4000ms',
         },
       }
     })

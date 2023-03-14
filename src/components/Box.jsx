@@ -1,4 +1,5 @@
 import React, {useEffect, useRef, useState } from 'react'
+import { FLIP_ANIMATION_DURATION } from '../util/constants'
 
 const Box = ({ letter, isInvalid, fill, toFlip, flipDelay, boxNum, rowNum, toBounce}) => {
 
@@ -37,7 +38,7 @@ const Box = ({ letter, isInvalid, fill, toFlip, flipDelay, boxNum, rowNum, toBou
       else if(fill !== 'bg-EMPTY'){
         setTimeout(() => { 
           setColorFill( prev => fill) 
-        }, 500 + (flipDelay.slice(16,flipDelay.length) * 1))
+        }, (FLIP_ANIMATION_DURATION / 2)  + (flipDelay.slice(16,flipDelay.length) * 1))
       }
     }
     toggleColor()

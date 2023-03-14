@@ -47,18 +47,18 @@ module.exports = {
 
         Bounce: {
           "20%" : {
-            transform: 'translateY(5px)',
+            transform: 'translateY(-18px)',
           },
           "40%" : {
-            transform: 'translateY(-7px)',
+            transform: 'translateY(8px)', 
           },
 
           "60%" : {
-            transform: 'translateY(4px)',
+            transform: 'translateY(-9px)', 
           },
 
           "80%" : {
-            transform: 'translateY(-1px)',
+            transform: 'translateY(-4px)',
           },
         },
       },
@@ -67,7 +67,7 @@ module.exports = {
         pop: 'Pop 100ms ease-in-out 1',
         shake: 'Shake 150ms ease-in-out 2',
         flip: 'Flip 1000ms ease-in-out 1',
-        bounce: 'Bounce 1500ms ease-in-out 1',
+        bounce: 'Bounce 1000ms ease-in-out 1',
       },
     },
 

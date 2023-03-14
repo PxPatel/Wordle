@@ -24,7 +24,7 @@ export function GCProvider({ children }) {
         const getWord = async() =>{
             setLoading(prev => true)
             let output = await randomWordAPI()
-            setRealWord('MEEDS')
+            setRealWord(output)
             setLoading(prev => false)
             console.log(output)
         }
@@ -128,7 +128,6 @@ export function GCProvider({ children }) {
         }    
 
         if(realDict.size === 0){
-            console.log("YOU WIN")
             setInPlay(prev => false)
             setTimeout(() => {
                 setRowStyle(prev => { return {...prev, bounceRow : pos.currRow} })
@@ -138,7 +137,6 @@ export function GCProvider({ children }) {
         }
 
         const mapValues = [...realDict.values()]
-        console.log('Yellow Checks')
         for(const key of realDict.keys()){
             if(mapValues.includes(guessArr[key])){
                 row[key] = 'bg-PRESENT' 

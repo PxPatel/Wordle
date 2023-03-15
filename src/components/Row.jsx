@@ -17,7 +17,7 @@ const Row = ({ stateRow, rowNum}) => {
                 fill= { styleState[rowNum][i] }
                 toFlip= { rowStyle.flipRow === rowNum }
                 toBounce= { rowStyle.bounceRow === rowNum }
-                flipDelay= { rowStyle.flipRow === rowNum  || rowStyle.bounceRow === rowNum  ? `animation-delay-${FLIP_DELAY_BETWEEN_TILE*i}`: ''}
+                delay= { rowStyle.flipRow === rowNum  || rowStyle.bounceRow === rowNum  ? `animation-delay-${FLIP_DELAY_BETWEEN_TILE*i}`: ''}
                 key= { i } />
         })
         return row

@@ -13,21 +13,18 @@ export function GCProvider({ children }) {
     const [gameState, setGameState] = useState(createGameState)
     const [styleState, setStyleState] = useState(createStyleState)
     const [realWord, setRealWord] = useState()
-    const [inPlay, setInPlay] = useState(true)
-    const [loading, setLoading] = useState(false)
-
+    
     //TODO: Better name for states
-    //TODO: Add back pauses state now knowing how to properly use useState
-    //TODO: Work on Adding toPop back to rowStyle
+    const [pauses, setPauses] = useState({ inPlay: true, loading : false})
     const [pos, setPos] = useState({currRow : 0, currBox : 0})
     const [rowStyle, setRowStyle] = useState({ invalidRow : null, flipRow : null, bounceRow : null })
 
     useEffect(() => {
         const getWord = async() =>{
-            setLoading(prev => true)
+            setPauses(prev => { return {...prev, loading : true}})
             let output = await randomWordAPI()
-            setRealWord(output)
-            setLoading(prev => false)
+            setRealWord('MEEDS')
+            setPauses(prev => { return {...prev, loading : false}})
             console.log(output)
         }
         getWord()
@@ -95,7 +92,7 @@ export function GCProvider({ children }) {
     function nextRow(){
         if(pos.currRow < 6){
             if(pos.currRow + 1 === 6){
-             setInPlay(prev => false)
+                setPauses(prev => { return {...prev, inPlay : false}})
             }
             setPos({currRow : pos.currRow + 1, currBox : 0})
         }
@@ -114,10 +111,8 @@ export function GCProvider({ children }) {
     }
 
     function colorMeUp(){
-
         const nextState = deepCopify(styleState)
         const row = nextState[pos.currRow]
-
         const guessArr = [...gameState[pos.currRow]]
         const realDict = dictify(realWord)
 
@@ -130,7 +125,7 @@ export function GCProvider({ children }) {
         }    
 
         if(realDict.size === 0){
-            setInPlay(prev => false)
+            setPauses(prev => { return {...prev, inPlay : false}})
             setTimeout(() => {
                 setRowStyle(prev => { return {...prev, bounceRow : pos.currRow} })
             }, FULL_FLIP_WAIT)
@@ -150,11 +145,11 @@ export function GCProvider({ children }) {
     }
 
     function flipMyRow(){
-        setLoading(prev => true)
+        setPauses(prev => { return {...prev, loading : true}})
         setRowStyle(prev => { return {...prev, flipRow : pos.currRow}})
         setTimeout(() => {
             setRowStyle(prev => { return {...prev, flipRow : null}})
-            setLoading(prev => false)   
+            setPauses(prev => { return {...prev, loading : false}})
         }, FULL_FLIP_WAIT)
     }
 
@@ -172,8 +167,7 @@ export function GCProvider({ children }) {
     const value = {
         gameState,
         styleState,
-        inPlay,
-        loading,
+        pauses,
         pos,
         rowStyle,
         handleKeyChanges,

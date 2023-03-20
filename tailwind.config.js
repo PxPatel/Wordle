@@ -4,7 +4,7 @@ const plugin = require('tailwindcss/plugin')
 module.exports = {
   
   //Dark mode toggle
-  darkMode: 'darkClass',
+  darkMode: 'class',
 
   //Safelist utility classes to use variable dynamic styles
   safelist: [

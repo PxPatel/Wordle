@@ -116,7 +116,6 @@ export function GCProvider({ children }) {
         const guessArr = [...gameState[pos.currRow]]
         const realDict = dictify(realWord)
 
-        //Iterate and delete letters that are on perfect index
         for( let i = 0; i < guessArr.length; i++){
             if( guessArr[i] === realDict.get(i)){
                 row[i] = 'bg-CORRECT'
@@ -158,10 +157,6 @@ export function GCProvider({ children }) {
         setTimeout(() => {
             setRowStyle(prev => { return {...prev, invalidRow : null}})
         }, INVALID_WAIT)
-
-        // https://stackoverflow.com/questions/22252214/making-text-blink-a-certain-number-of-times
-        // https://dev.to/lydiahallie/javascript-visualized-promises-async-await-5gke
-        // https://dev.to/masteringjs/using-then-vs-async-await-in-javascript-2pma
     }
 
     const value = {

@@ -1,7 +1,7 @@
-import React, {useEffect, useRef, useState } from 'react'
+import React, {useEffect , useRef, useState } from 'react'
 import { FLIP_ANIMATION_DURATION } from '../util/constants'
 
-const Box = ({ letter, isInvalid, fill, toFlip, delay, boxNum, rowNum, toBounce}) => {
+const Box = ({ letter, isInvalid, fill, toFlip, delay, toBounce}) => {
 
   const boxRef = useRef()
   const [colorVal, setColorVal] = useState('bg-EMPTY')

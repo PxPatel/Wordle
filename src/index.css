@@ -1,3 +1,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components{
+    .slider_button{
+        @apply z-[1] relative w-10 h-5 
+        
+        bg-gray-200 rounded-full 
+
+        after:content-[''] 
+        after:absolute 
+        after:top-[2px] 
+        after:left-[4px] 
+        after:bg-white 
+        after:border-gray-300 
+        after:border 
+        after:rounded-full 
+        after:h-[16px] 
+        after:w-[16px] 
+        after:transition-all 
+        after:duration-300
+        
+        peer-checked:bg-gray-700 
+        peer-checked:after:translate-x-full 
+    }
+
+    .dmButton{
+        @apply 
+        z-[1] relative w-8 h-8
+
+        bg-gray-700 rounded-3xl
+        transition-all duration-200 ease-linear cursor-pointer
+
+        hover:rounded-xl
+
+        dark:bg-gray-300
+    }
+}

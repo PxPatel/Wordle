@@ -102,7 +102,7 @@ export function GCProvider({ children }) {
         const validWord = await wordAPI(gameState[pos.currRow].join("")) || false
         if(validWord){
             colorMeUp()
-            flipMyRow()
+            flipRow()
             nextRow()
         }
         else{
@@ -143,7 +143,7 @@ export function GCProvider({ children }) {
         setStyleState(nextState)        
     }
 
-    function flipMyRow(){
+    function flipRow(){
         setPauses(prev => { return {...prev, loading : true}})
         setRowStyle(prev => { return {...prev, flipRow : pos.currRow}})
         setTimeout(() => {

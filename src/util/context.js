@@ -13,7 +13,7 @@ export function GCProvider({ children }) {
     const [gameState, setGameState] = useState(createGameState)
     const [styleState, setStyleState] = useState(createStyleState)
     const [realWord, setRealWord] = useState()
-    
+
     //TODO: Better name for states
     const [pauses, setPauses] = useState({ inPlay: true, loading : false})
     const [pos, setPos] = useState({currRow : 0, currBox : 0})
@@ -29,7 +29,7 @@ export function GCProvider({ children }) {
         }
         getWord()
     }, [])
-
+ 
     //TODO: Storage Capability
     // useEffect(() => {
     //     if( !(sessionStorage.getItem('PriWordle')) ){

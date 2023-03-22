@@ -1,12 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Row from './Row'
 import { useGameState } from '../util/context'
+import { colorScheme } from '../util/constants'
 
 const Game = () => {
   
   const { gameState, pauses, handleKeyChanges } = useGameState()
   const [focusOnMe, updateState] = useState()
   const gameRef = useRef(null);
+
+  const { Game } = colorScheme
 
   useEffect(() => {
     if (gameRef.current) {
@@ -28,7 +31,7 @@ const Game = () => {
 
   // bg-[#145266]
   return (
-    <div className='flex flex-1 flex-col relative place-content-center bg-[#121213] dark:bg-[#145266] min-h-full min-w-screen outline-none' 
+    <div className={`relative centerStage flex-1 flex-col ${Game.bgLight} ${Game.bgDark} min-h-full min-w-screen outline-none`}
       onKeyDown={ pauses.inPlay && !pauses.loading ? handleKeyChanges : undefined }
       tabIndex={-1}
       ref= { gameRef }

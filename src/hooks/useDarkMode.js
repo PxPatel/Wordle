@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import useLocalStorage from "./useLocalStorage";
 
 const useDarkMode = () => {
-    const [enabled, setEnabled] = useLocalStorage('dark-theme, true');
+    const [enabled, setEnabled] = useLocalStorage('dark-theme', true);
     const isEnabled = typeof enabledState === 'undefined' && enabled;
   
     useEffect(() => {
@@ -10,7 +10,7 @@ const useDarkMode = () => {
       const bodyClass = window.document.body.classList;
   
       isEnabled ? bodyClass.add(className) : bodyClass.remove(className);
-    }, [enabled, isEnabled]);
+    }, [isEnabled]);
   
     return [enabled, setEnabled];
   };

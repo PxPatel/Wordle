@@ -3,47 +3,15 @@ https://stackoverflow.com/questions/22252214/making-text-blink-a-certain-number-
 https://dev.to/lydiahallie/javascript-visualized-promises-async-await-5gke
 https://dev.to/masteringjs/using-then-vs-async-await-in-javascript-2pma
 
+<!-- THIS is the JSX for slider along with the WORDLE Title -->
+<div className='relative w-full h-24 bg-[#121213] border-b-2 border-b-[#c8d4e8]' >
+      <div className={'relative h-full font-TMS flex centerStage place-items-center text-white text-4xl font-extrabold tracking-wide subpixel-antialiased'}>
+        Wordle
+      </div>
 
-label {
-  position: relative;
-  width: 200px;
-  height: 100px;
-  border-radius: 50px;
-  cursor: pointer;
-}
+      <label className="absolute min-w-fit  inline-flex justify-start items-center cursor-pointer top-1/2 left-[85%] -translate-y-1/2">
+        <input type="checkbox" value="" className="sr-only peer" onClick= {handleMode}/>
+        <div className="dmButton"></div>
+      </label>
 
-input {
-  position: absolute;
-  display: none;
-}
-
-.slider {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 50px;
-  transition: 0.3s;
-  background-color: var(--dark)
-}
-
-input:checked ~ .slider {
-  background-color: var(--light);
-}
-
-.slider::before {
-  content: "";
-  position: absolute;
-  top: 13px;
-  left: 16px;
-  width: 75px;
-  height: 75px;
-  border-radius: 50%;
-  box-shadow: inset 28px -4px 0px 0px var(--light);
-  background-color: var(--dark);
-  transition: 0.3s;
-}
-
-input:checked ~ .slider::before {
-  transform: translateX(95px);
-  box-shadow: none;
-}
+</div>

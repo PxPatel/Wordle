@@ -1,10 +1,11 @@
 import React, {useEffect , useRef, useState } from 'react'
-import { FLIP_ANIMATION_DURATION } from '../util/constants'
+import { colorScheme, FLIP_ANIMATION_DURATION } from '../util/constants'
 
 const Box = ({ letter, isInvalid, fill, toFlip, delay, toBounce}) => {
 
   const boxRef = useRef()
   const [colorVal, setColorVal] = useState('bg-EMPTY')
+  const { Box } = colorScheme
 
   useEffect(() => {
     if (letter !== "") {
@@ -32,7 +33,7 @@ const Box = ({ letter, isInvalid, fill, toFlip, delay, toBounce}) => {
 
   return (
     <div 
-      className= {`min-w-[60px] min-h-[60px] m-1 centerStage place-items-center border-box font-TMS text-[2rem] text-white border-2 ${letter ? "border-[#3a3a3c]" : "border-[#565758]"} ${isInvalid ? 'animate-shake border-red-700' : ''} ${colorVal} ${delay} ${toFlip ? 'animate-flip' : ''} 
+      className= {`centerStage place-items-center min-w-[60px] min-h-[60px] m-1 border-box font-TMS ${Box.textDark} ${Box.textLight} text-[2rem] border-2 ${letter ? "border-[#3a3a3c]" : "border-[#565758]"} ${isInvalid ? 'animate-shake border-red-700' : ''} ${colorVal} ${delay} ${toFlip ? 'animate-flip' : ''} 
       ${toBounce ? 'animate-bounce' : ''}`}
       ref = {boxRef}>      
        {letter} 

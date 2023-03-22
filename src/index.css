@@ -28,8 +28,9 @@
     .dmButton{
         @apply 
         w-8 h-8
-        bg-gray-300
-         rounded-3xl
+        bg-slate-600 
+        /* TODO: Pick Better Colors */
+        rounded-3xl
         transition-all duration-200 ease-linear cursor-pointer
 
         hover:rounded-xl

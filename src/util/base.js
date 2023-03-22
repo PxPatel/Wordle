@@ -41,7 +41,7 @@ export const createStyleState = () => {
   for(let i  = 0; i < 6; i++) {
     let row = []
     for(let j = 0; j < 5; j++) {
-      row.push('bg-EMPTY')
+      row.push(`${boxLight.correct} ${boxDark.correct}`)
     }
     arr.push(row)
   }

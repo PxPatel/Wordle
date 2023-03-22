@@ -1,8 +1,9 @@
 import React, { useContext, createContext, useEffect, useState} from "react"
 import { createStyleState, createGameState, deepCopify, dictify, randomWordAPI, wordAPI } from "./base"
-import { FULL_FLIP_WAIT, INVALID_WAIT } from "./constants"
+import { FULL_FLIP_WAIT, INVALID_WAIT, colorScheme } from "./constants"
 
 const GameContext = createContext()
+const { boxDark, boxLight } = colorScheme.Box
 
 export const useGameState = () =>{
     return useContext(GameContext)
@@ -118,7 +119,8 @@ export function GCProvider({ children }) {
 
         for( let i = 0; i < guessArr.length; i++){
             if( guessArr[i] === realDict.get(i)){
-                row[i] = 'bg-CORRECT'
+                // row[i] = 'bg-CORRECT'
+                row[i] = `${boxLight.correct} ${boxDark.correct}`
                 realDict.delete(i)
             }
         }    
@@ -135,10 +137,10 @@ export function GCProvider({ children }) {
         const mapValues = [...realDict.values()]
         for(const key of realDict.keys()){
             if(mapValues.includes(guessArr[key])){
-                row[key] = 'bg-PRESENT' 
+                row[key] = `${boxLight.present} ${boxDark.present}` 
                 mapValues.splice(mapValues.indexOf(guessArr[key]),1)
             }
-            else{ row[key] = 'bg-ABSENT' }
+            else{ row[key] = `${boxLight.absent} ${boxDark.absent}` }
         }       
         setStyleState(nextState)        
     }

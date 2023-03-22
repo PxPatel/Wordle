@@ -1,21 +1,22 @@
 import React from 'react'
 import useDarkMode from '../hooks/useDarkMode';
 import { FaSun, FaMoon } from 'react-icons/fa';
+import { colorScheme } from '../util/constants';
 
 const NavBar = () => {
   const [darkTheme, setDarkTheme] = useDarkMode();
   const handleMode = () => setDarkTheme(!darkTheme);
-  console.log(darkTheme)
 
+  const { NavBar } = colorScheme
 
   //border-b-[#568ce3]
   return (
-    <div className='relative w-full h-24 bg-[#121213] border-b-2 border-b-[#3e4f6d]' >
-      <div className={'relative h-full font-TMS flex centerStage place-items-center text-white text-4xl font-extrabold tracking-wide subpixel-antialiased'}>
+    <div className={`relative w-full h-24 ${NavBar.bgDark} ${NavBar.bgLight} border-b-2 border-b-[#3e4f6d]`} >
+      <div className={`relative h-full font-TMS centerStage place-items-center ${NavBar.textDark} ${NavBar.textLight} text-4xl font-extrabold tracking-wide subpixel-antialiased`}>
         Wordle
       </div>
 
-      <div className=" dmButton flex place-content-center place-items-center absolute min-w-fit top-1/2 left-[85%] -translate-y-1/2"
+      <div className="dmButton centerStage place-items-center absolute min-w-fit top-1/2 left-[85%] -translate-y-1/2"
           onClick={handleMode}>
 
         {darkTheme ? ( 

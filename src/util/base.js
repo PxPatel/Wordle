@@ -1,4 +1,5 @@
 import axios from "axios"
+import { colorScheme } from './constants'
 
 export const deepCopify = (arr) => JSON.parse(JSON.stringify(arr))
 
@@ -41,7 +42,7 @@ export const createStyleState = () => {
   for(let i  = 0; i < 6; i++) {
     let row = []
     for(let j = 0; j < 5; j++) {
-      row.push(`${boxLight.correct} ${boxDark.correct}`)
+      row.push(`${colorScheme.Box.boxLight.empty} ${colorScheme.Box.boxDark.empty}`)
     }
     arr.push(row)
   }

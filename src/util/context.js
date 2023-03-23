@@ -1,6 +1,6 @@
 import React, { useContext, createContext, useEffect, useState} from "react"
 import { createStyleState, createGameState, deepCopify, dictify, randomWordAPI, wordAPI } from "./base"
-import { FULL_FLIP_WAIT, INVALID_WAIT, colorScheme } from "./constants"
+import { FULL_FLIP_WAIT, INVALID_WAIT, colorScheme, FULL_BOUNCE_WAIT } from "./constants"
 
 const GameContext = createContext()
 const { boxDark, boxLight } = colorScheme.Box
@@ -130,6 +130,10 @@ export function GCProvider({ children }) {
             setTimeout(() => {
                 setRowStyle(prev => { return {...prev, bounceRow : pos.currRow} })
             }, FULL_FLIP_WAIT)
+            
+            setTimeout(() => {
+                setRowStyle(prev => { return {...prev, bounceRow : null} })
+            }, FULL_BOUNCE_WAIT + FULL_FLIP_WAIT)
             setStyleState(nextState)        
             return
         }

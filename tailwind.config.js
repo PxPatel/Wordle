@@ -94,6 +94,8 @@ module.exports = {
           '.centerStage' : { 
             'display' : 'flex',
             'place-content' : 'center',
+            'place-items' : 'center',
+
           }
         },
       )

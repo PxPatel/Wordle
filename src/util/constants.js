@@ -20,14 +20,14 @@ export const colorScheme = {
         textLight: 'text-black',
         textDark: 'dark:text-white',
         bgDark: 'dark:bg-[#121213]',
-        bgLight: 'bg-gray-300',
+        bgLight: 'bg-[#EED5BF]',
         //border-b-[#568ce3]
     },
 
     Game: {
         bgDark: 'dark:bg-[#121213]',
         // bgLight: 'bg-[#145266]'
-        bgLight: 'bg-gray-300'
+        bgLight: 'bg-[#EED5BF]'
     },
 
     Box: {
@@ -38,7 +38,8 @@ export const colorScheme = {
             absent : 'dark:bg-ABSENT', 
         },
         boxLight: {
-            empty: 'bg-EMPTY',
+            // empty: 'bg-[#E5BF9E]',
+            empty: '',
             correct : 'bg-CORRECT',
             present : 'bg-PRESENT',
             absent : 'bg-ABSENT',

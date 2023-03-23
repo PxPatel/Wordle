@@ -29,7 +29,7 @@
         @apply 
         w-8 h-8
         bg-slate-600 
-        /* TODO: Pick Better Colors */
+        /* TODO: Pick Better Colors For Dark Mode Button*/
         rounded-3xl
         transition-all duration-200 ease-linear cursor-pointer
 
@@ -38,5 +38,11 @@
 
     }
     
+    .sidebar-tooltip {
+        @apply absolute w-auto p-2 m-2 min-w-max left-12 rounded-md shadow-md
+    text-white bg-gray-900 dark:bg-gray-600
+    text-xs font-bold 
+    transition-transform duration-300 delay-150 origin-left;
+  }
 }
 

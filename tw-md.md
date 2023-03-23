@@ -2,6 +2,9 @@
 
 const plugin = require('tailwindcss/plugin')
 module.exports = {
+  
+  //Dark mode toggle
+  darkMode: 'class',
 
   //Safelist utility classes to use variable dynamic styles
   safelist: [
@@ -91,6 +94,8 @@ module.exports = {
           '.centerStage' : { 
             'display' : 'flex',
             'place-content' : 'center',
+            'place-items' : 'center',
+
           }
         },
       )

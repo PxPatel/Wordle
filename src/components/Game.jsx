@@ -11,14 +11,14 @@ const Game = () => {
 
   const { Game } = colorScheme
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    if(gameRef.current){
-      gameRef.current.focus();
-    }
-  }, [focusOnMe]);
+  //   if(gameRef.current){
+  //     gameRef.current.focus();
+  //   }
+  // }, [focusOnMe]);
 
-  const forceUpdate = React.useCallback(() => updateState({}), [])
+  // const forceUpdate = React.useCallback(() => updateState({}), [])
   
   const makeBoard = () => {
     const board = gameState.map((row,i) => { 
@@ -37,7 +37,7 @@ const Game = () => {
       onKeyDown={ pauses.inPlay && !pauses.loading ? handleKeyChanges : undefined }
       tabIndex={-1}
       ref= { gameRef }
-      onBlur= { forceUpdate }
+      // onBlur= { forceUpdate }
       >
 
       <div 

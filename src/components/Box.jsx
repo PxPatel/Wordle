@@ -4,11 +4,11 @@ import { colorScheme, FLIP_ANIMATION_DURATION } from '../util/constants'
 const Box = ({ letter, isInvalid, fill, toFlip, delay, toBounce}) => {
 
   const boxRef = useRef()
-  const [colorVal, setColorVal] = useState('bg-EMPTY')
+  const [colorVal, setColorVal] = useState(`${colorScheme.Box.boxLight.empty} ${colorScheme.Box.boxDark.empty}`)
   const { Box } = colorScheme
 
   useEffect(() => {
-    if (letter !== "") {
+    if (letter !== ``) {
       const newClass = boxRef.current.className  + " animate-pop "
       boxRef.current.className = newClass
       setTimeout(() => {
@@ -24,7 +24,7 @@ const Box = ({ letter, isInvalid, fill, toFlip, delay, toBounce}) => {
 
   useEffect(() =>
   {
-    if(fill !== 'bg-EMPTY'){
+    if(fill !== ``){
       setTimeout(() => { 
         setColorVal( prev => fill) 
       }, (FLIP_ANIMATION_DURATION / 2)  + (delay.slice(16, delay.length) * 1))

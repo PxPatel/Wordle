@@ -42,12 +42,13 @@ export const createStyleState = () => {
   for(let i  = 0; i < 6; i++) {
     let row = []
     for(let j = 0; j < 5; j++) {
-      row.push(`${colorScheme.Box.boxLight.empty} ${colorScheme.Box.boxDark.empty}`)
+      row.push(``)
     }
     arr.push(row)
   }
   return arr
 }
+//${colorScheme.Box.boxLight.empty} ${colorScheme.Box.boxDark.empty}
 
 export const createTestStyleState = () => {
   let arr = []

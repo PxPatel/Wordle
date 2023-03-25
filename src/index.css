@@ -39,10 +39,17 @@
     }
     
     .sidebar-tooltip {
-        @apply absolute w-auto p-2 m-2 min-w-max left-12 rounded-md shadow-md
+        @apply absolute w-auto p-2 m-2 min-w-max right-12 rounded-md shadow-md
     text-white bg-gray-900 dark:bg-gray-600
     text-xs font-bold 
-    transition-transform duration-300 delay-150 origin-left;
+    transition-transform duration-300 delay-150 origin-right
+
+    min-[1190px]:left-12 min-[1190px]:origin-left
   }
+
+    .boxRes{
+    }
+
+
 }
 

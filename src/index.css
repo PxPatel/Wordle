@@ -3,28 +3,7 @@
 @tailwind utilities;
 
 @layer components{
-    .slider_button{
-        @apply z-[1] relative w-10 h-5 
-        
-        bg-gray-200 rounded-full 
-
-        after:content-[''] 
-        after:absolute 
-        after:top-[2px] 
-        after:left-[4px] 
-        after:bg-white 
-        after:border-gray-300 
-        after:border 
-        after:rounded-full 
-        after:h-[16px] 
-        after:w-[16px] 
-        after:transition-all 
-        after:duration-300
-        
-        peer-checked:bg-gray-700 
-        peer-checked:after:translate-x-full 
-    }
-
+    
     .dmButton{
         @apply 
         w-8 h-8
@@ -40,16 +19,30 @@
     
     .sidebar-tooltip {
         @apply absolute w-auto p-2 m-2 min-w-max right-12 rounded-md shadow-md
-    text-white bg-gray-900 dark:bg-gray-600
-    text-xs font-bold 
-    transition-transform duration-300 delay-150 origin-right
+        text-white bg-gray-900 dark:bg-gray-600 text-xs font-bold transition-none
+        sm:transition-transform sm:duration-300 sm:delay-150 sm:origin-right
 
-    min-[1190px]:left-12 min-[1190px]:origin-left
-  }
+        min-[1190px]:left-12 min-[1190px]:origin-left
+  } 
 
     .boxRes{
+        @apply
+        min-w-[30px]
+        max-w-[60px]
+
+        /* If under md, grow/shrink at 6%, otherwise stay 60px */
+        wP-[6]
+        md:w-[60px]
+        
+        after:content-['']
+        after:block
+        after:pb-full
     }
 
-
+    .letterRes{
+        @apply
+        text-[1rem]
+        md:text-[2rem]
+    }
 }
 

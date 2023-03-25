@@ -39,7 +39,7 @@ const NavBar = () => {
             <FaMoon size='24' className='hover:text-pink-600' />
           )
           }
-          <span className="sidebar-tooltip scale-0 group-hover:scale-100">
+          <span className="sidebar-tooltip scale-0 sm:group-hover:scale-100">
             Toggle {darkTheme ? 'Dark' : 'Light'} Mode
           </span>
       </div>

@@ -33,10 +33,11 @@ const Box = ({ letter, isInvalid, fill, toFlip, delay, toBounce}) => {
 
   return (
     <div 
-      className= {`centerStage min-w-[60px] min-h-[60px] m-1 border-box font-TMS ${Box.textDark} ${Box.textLight} text-[2rem] border-2 ${letter ? Box.filledBorderDark : Box.emptyBorderDark} ${isInvalid ? 'animate-shake border-red-700 dark:border-red-700' : ''} ${colorVal} ${delay} ${toFlip ? 'animate-flip' : ''} 
+      className= {`boxRes letterRes centerStage m-1 border-box font-TMS ${Box.textDark} ${Box.textLight} border-2 ${letter ? `${Box.filledBorderLight} ${Box.filledBorderDark}` : `${Box.emptyBorderLight} ${Box.emptyBorderDark}`} ${isInvalid ? 'animate-shake border-red-700 dark:border-red-700' : ''} ${colorVal} ${delay} ${toFlip ? 'animate-flip' : ''} 
       ${toBounce ? 'animate-bounce' : ''}`}
-      ref = {boxRef}>      
-      {letter} 
+      ref = {boxRef}> 
+        {letter}
+
     </div>
   )
 }

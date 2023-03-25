@@ -77,7 +77,7 @@ module.exports = {
 
   }, 
   plugins: [
-    plugin(function({ matchUtilities, addComponents, theme }) {
+    plugin(function({ matchUtilities, addComponents, addUtilities, theme }) {
       //Animation delay utility Class
       matchUtilities(
         {
@@ -87,6 +87,40 @@ module.exports = {
         },
         { values: theme('animationDelay') }
       )
+
+      addUtilities({
+        '.pb-full': {
+          'padding-bottom': '100%',
+        }
+      })
+
+      matchUtilities(
+        {
+          'wP': (value) => ({
+            'width' : `${value}%`
+          })
+        },
+        {
+          values: {
+            '10': '10'
+          }
+        }
+      )
+
+      
+      matchUtilities(
+        {
+          'hP': (value) => ({
+            'height' : `${value}%`
+          })
+        },
+        {
+          values: {
+            '10%': '10'
+          }
+        }
+      )
+      
 
       //Component plugin for standard flexbox
       addComponents(

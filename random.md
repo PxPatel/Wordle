@@ -23,3 +23,13 @@ https://dev.to/masteringjs/using-then-vs-async-await-in-javascript-2pma
 // </div>  
     
      -->
+
+<!-- Features:
+
+1. Local Storage
+2. Responsive App
+3. Overlay
+4. Memo Components
+5. Make custom hooks to replace useEffects in Box
+6. Add DarkMode
+ -->

@@ -1,5 +1,5 @@
 import axios from "axios"
-import { colorScheme } from './constants'
+// import { colorScheme } from './constants'
 
 export const deepCopify = (arr) => JSON.parse(JSON.stringify(arr))
 

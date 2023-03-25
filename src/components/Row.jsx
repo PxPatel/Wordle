@@ -24,7 +24,7 @@ const Row = ({ stateRow, rowNum}) => {
     }
 
     return (
-      <div className={`centerStage h-fit`}>
+      <div className={`centerStage w-full h-fit`}>
           { createRow()}
       </div>
   )

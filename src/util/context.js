@@ -26,7 +26,6 @@ export function GCProvider({ children }) {
             let output = await randomWordAPI()
             setRealWord('MEEDS')
             setPauses(prev => { return {...prev, loading : false}})
-            console.log(output)
         }
         getWord()
     }, [])
@@ -119,20 +118,20 @@ export function GCProvider({ children }) {
 
         for( let i = 0; i < guessArr.length; i++){
             if( guessArr[i] === realDict.get(i)){
-                // row[i] = 'bg-CORRECT'
                 row[i] = `${boxLight.correct} ${boxDark.correct}`
                 realDict.delete(i)
             }
         }    
 
         if(realDict.size === 0){
-            setPauses(prev => { return {...prev, inPlay : false}})
             setTimeout(() => {
                 setRowStyle(prev => { return {...prev, bounceRow : pos.currRow} })
+                setPauses(prev => { return {...prev, loading : true}})
             }, FULL_FLIP_WAIT)
             
             setTimeout(() => {
                 setRowStyle(prev => { return {...prev, bounceRow : null} })
+                setPauses({loading: false, inPlay : false})
             }, FULL_BOUNCE_WAIT + FULL_FLIP_WAIT)
             setStyleState(nextState)        
             return
@@ -168,6 +167,7 @@ export function GCProvider({ children }) {
     const value = {
         gameState,
         styleState,
+        realWord,
         pauses,
         pos,
         rowStyle,

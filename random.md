@@ -27,9 +27,12 @@ https://dev.to/masteringjs/using-then-vs-async-await-in-javascript-2pma
 <!-- Features:
 
 1. Local Storage
-2. Responsive App
-3. Overlay
+2. Responsive App - Boxes need smoother a change, NavBar needs update
+3. Overlay - Working currently
 4. Memo Components
 5. Make custom hooks to replace useEffects in Box
-6. Add DarkMode
+6. Implement Immer
  -->
+
+ <!-- import { useImmer } from 'use-immer' -->
+ <!-- Use Immer to replace deepCopify repetition -->

@@ -24,13 +24,13 @@ const NavBar = () => {
         className="dmButton absolute centerStage min-w-fit top-1/2 left-[85%] -translate-y-1/2 group"
         onClick={handleMode}
         tabIndex={0}
-        onKeyDown= {(e) => {
-          if(e.key === 'Enter' && toggleAllowed.current){ handleMode(); toggleAllowed.current = false; }
-          }
-        }
-        onKeyUp= {(e) => {
-          e.key === 'Enter' && (toggleAllowed.current = !toggleAllowed.current)
-        }}
+        // onKeyDown= {(e) => {
+        //   if(e.key === 'Enter' && toggleAllowed.current){ handleMode(); toggleAllowed.current = false; }
+        //   }
+        // }
+        // onKeyUp= {(e) => {
+        //   e.key === 'Enter' && (toggleAllowed.current = !toggleAllowed.current)
+        // }}
       >
 
         {darkTheme ? ( 

@@ -53,5 +53,13 @@ export const colorScheme = {
         filledBorderLight: 'border-[#49495a]',
         emptyBorderDark: 'dark:border-[#565758]',
         filledBorderDark: 'dark:border-[#3a3a3c]',
+    },
+
+    Modal: {
+        bgLight: 'bg-[#D77A70]/[.95] ',
+        bgDark: 'dark:bg-[#1D3549]/[0.95]',
+        textLight: 'text-white',
+        textDark: 'dark:text-white',
+
     }
 }

@@ -7,23 +7,19 @@ import Modal from './Modal'
 const Game = () => {
   
   const { gameState, pauses, handleKeyChanges, realWord } = useGameState()
-  
-  const [modalShow, setModalShow] = useState(true)
-  
-  const closeModal = useCallback(() => setModalShow(false), [])
-  
   const { Game } = colorScheme
+
+  const [modalShow, setModalShow] = useState(true)
+  const closeModal = useCallback(() => setModalShow(false), [])
+
   
   const gameRef = useRef(null);
   const [focusOnMe, updateState] = useState()
   useEffect(() => {
-
       if(gameRef.current){
       gameRef.current.focus();
       }
-
   }, [focusOnMe]);
-
   const updateFocus = useCallback(() => updateState({}), [])
 
   const makeBoard = () => {

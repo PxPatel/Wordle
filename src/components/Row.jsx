@@ -1,4 +1,4 @@
-import React, {memo, useEffect, useRef} from 'react'
+import React, {memo, useEffect} from 'react'
 import { FLIP_DELAY_BETWEEN_TILE } from '../util/constants'
 import { useGameState } from '../util/context'
 import Box from './Box'
@@ -7,34 +7,14 @@ import Box from './Box'
 const arePropsEqual = (oldProps, newProps) => {
     const rows = oldProps.rowNum === newProps.rowNum 
     const arr = (
-        newProps.stateRow.every((value, index) => {
-            return value === oldProps.stateRow[index]
+        (newProps.stateRow).every((value, index) => {
+            return value === (oldProps.stateRow)[index]
         })) 
 
     return rows && arr
 }
 
-const PE2 = (prevProps, nextProps) => {
-    const sameRow = prevProps.rowNum === nextProps.rowNum 
-    const sameArr = (prevProps.stateRow).every((value, index) => {
-        return value === (nextProps.stateRow).at(index)
-    })
-
-    console.log(prevProps.rowNum + " " + (sameArr && sameRow))
-    return sameArr && sameRow
-}
-
-const Row = 
-memo(({ stateRow, rowNum}) => {
-
-    console.log(rowNum);
-
-    const oldProps = useRef({stateRow, rowNum})
-    const newProps = useRef({stateRow, rowNum})
-
-    // useEffect(() => {
-    //     console.log(rowNum + ' Rendering')
-    // })
+const Row = ({ stateRow, rowNum}) => {
 
     const { styleState, rowStyle } = useGameState()
 
@@ -59,6 +39,7 @@ memo(({ stateRow, rowNum}) => {
           { createRow()}
       </div>
   )
-}, PE2)
+}
 
 export default Row
+// export default memo(Row, arePropsEqual)

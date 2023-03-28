@@ -3,10 +3,29 @@
   <head>
     <!-- To Prevent FOUC - Paired with Body-->
     <!-- <script> alert("hello") </script> -->
-
     <style>
     html{visibility: hidden;opacity:0;}
     </style>
+
+    <script>      
+      console.log("Rerendered from HTML")
+      console.log("Rerendered from BODY")
+      console.log(window.sessionStorage.getItem('dark-theme'))
+      console.log(!('dark-theme' in window.sessionStorage))
+
+      if (window.sessionStorage.getItem('dark-theme') === true || (!('dark-theme' in window.sessionStorage)))
+      {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
+    </script>
+    
+
+    <!-- 
+      If the Sess has something than load it in, if not make dark. 
+      Then have the hook pull in rather than initially load
+    -->
 
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
@@ -35,18 +54,10 @@
   </head>
   <body>
 
+
+
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
     
     <!-- To Prevent FOUC - Paired with Head -->
     <style>html{visibility: visible; opacity:1;}</style>

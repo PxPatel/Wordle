@@ -4,7 +4,6 @@ const useLocalStorage = (key, initialValue) => {
     const [storedValue, setStoredValue] = useState(() => {
       try {
         const item = window.sessionStorage.getItem(key);
-        console.log(item + ' ' + initialValue)
         return item ? JSON.parse(item) : initialValue;
       } catch (error) {
         console.log(error);

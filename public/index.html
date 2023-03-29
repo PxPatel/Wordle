@@ -2,30 +2,9 @@
 <html lang="en">
   <head>
     <!-- To Prevent FOUC - Paired with Body-->
-    <!-- <script> alert("hello") </script> -->
     <style>
-    html{visibility: hidden;opacity:0;}
+    html{visibility: hidden; opacity:0;}
     </style>
-
-    <script>      
-      console.log("Rerendered from HTML")
-      console.log("Rerendered from BODY")
-      console.log(window.sessionStorage.getItem('dark-theme'))
-      console.log(!('dark-theme' in window.sessionStorage))
-
-      if (window.sessionStorage.getItem('dark-theme') === true || (!('dark-theme' in window.sessionStorage)))
-      {
-        document.documentElement.classList.add('dark')
-      } else {
-        document.documentElement.classList.remove('dark')
-      }
-    </script>
-    
-
-    <!-- 
-      If the Sess has something than load it in, if not make dark. 
-      Then have the hook pull in rather than initially load
-    -->
 
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
@@ -52,7 +31,7 @@
     -->
     <title>Pri's Wordle</title>
   </head>
-  <body>
+  <body class="THIS">
 
 
 

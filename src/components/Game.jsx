@@ -42,7 +42,7 @@ const Game = () => {
       >
       { makeBoard() }
 
-      {(modalShow && !pauses.inPlay && !pauses.loading || false) && <Modal content={realWord} onClose= {closeModal}/>}
+      {((modalShow && !pauses.inPlay && !pauses.loading) || false) && <Modal content={realWord} onClose= {closeModal}/>}
 
     </div>
   )

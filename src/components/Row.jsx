@@ -1,4 +1,4 @@
-import React, {memo, useEffect} from 'react'
+import React, {memo} from 'react'
 import { FLIP_DELAY_BETWEEN_TILE } from '../util/constants'
 import { useGameState } from '../util/context'
 import Box from './Box'
@@ -41,5 +41,5 @@ const Row = ({ stateRow, rowNum}) => {
   )
 }
 
-export default Row
-// export default memo(Row, arePropsEqual)
+// export default Row
+export default memo(Row, arePropsEqual)

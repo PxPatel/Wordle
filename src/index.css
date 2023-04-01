@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer components{
-    
+
     .dmButton{
         @apply 
         w-8 h-8

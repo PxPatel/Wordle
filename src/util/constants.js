@@ -56,8 +56,8 @@ export const colorScheme = {
     },
 
     Modal: {
-        bgLight: 'bg-[#D77A70]/[.95] ',
-        bgDark: 'dark:bg-[#1D3549]/[0.95]',
+        bgLight: 'bg-[#d3b8a7]/[.95] ',
+        bgDark: 'dark:bg-[#546776]/[0.95]',
         textLight: 'text-white',
         textDark: 'dark:text-white',
 

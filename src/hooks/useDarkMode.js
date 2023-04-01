@@ -7,7 +7,7 @@ const useDarkMode = () => {
     console.log('changes ' + enabled)
     useEffect(() => {
       const className = 'dark';
-      const bodyClass = window.document.documentElement.classList;
+      const bodyClass = window.document.body.classList;
       
       isEnabled ? bodyClass.add(className) : bodyClass.remove(className);
     }, [isEnabled])

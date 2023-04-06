@@ -4,7 +4,6 @@ import useLocalStorage from "./useLocalStorage";
 const useDarkMode = () => {
     const [enabled, setEnabled] = useLocalStorage('dark-theme', true);
     const isEnabled = typeof enabledState === 'undefined' && enabled;
-    console.log('changes ' + enabled)
     useEffect(() => {
       const className = 'dark';
       const bodyClass = window.document.body.classList;

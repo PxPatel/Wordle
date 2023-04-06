@@ -24,7 +24,7 @@ export function GCProvider({ children }) {
         const getWord = async() =>{
             setPauses(prev => { return {...prev, loading : true}})
             let output = await randomWordAPI()
-            setRealWord('MEEDS')
+            setRealWord(output)
             setPauses(prev => { return {...prev, loading : false}})
         }
         getWord()

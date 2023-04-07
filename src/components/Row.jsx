@@ -19,19 +19,18 @@ const Row = ({ stateRow, rowNum}) => {
     const { styleState, rowStyle } = useGameState()
 
     const createRow = () => {
-        const row = stateRow.map((spite,i) => {
-            return <Box 
-                letter= { spite } 
-                boxNum= { i }
-                rowNum= { rowNum }
-                isInvalid = {rowStyle.invalidRow === rowNum}
-                fill= { styleState[rowNum][i] }
-                toFlip= { rowStyle.flipRow === rowNum }
-                toBounce= { rowStyle.bounceRow === rowNum }
-                delay= { rowStyle.flipRow === rowNum  || rowStyle.bounceRow === rowNum  ? `animation-delay-${FLIP_DELAY_BETWEEN_TILE*i}`: ''}
-                key= { i } />
-        })
-        return row
+        return stateRow.map((spite,i) =>
+            <Box 
+            letter= { spite } 
+            boxNum= { i }
+            rowNum= { rowNum }
+            isInvalid = {rowStyle.invalidRow === rowNum}
+            fill= { styleState[rowNum][i] }
+            toFlip= { rowStyle.flipRow === rowNum }
+            toBounce= { rowStyle.bounceRow === rowNum }
+            delay= { rowStyle.flipRow === rowNum  || rowStyle.bounceRow === rowNum  ? `animation-delay-${FLIP_DELAY_BETWEEN_TILE*i}`: ''}
+            key= { i } />
+        )
     }
 
     return (
@@ -41,5 +40,4 @@ const Row = ({ stateRow, rowNum}) => {
   )
 }
 
-// export default Row
 export default memo(Row, arePropsEqual)

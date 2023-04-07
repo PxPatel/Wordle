@@ -32,7 +32,18 @@
     <title>Pri's Wordle</title>
   </head>
   <body class="THIS">
+    <script> 
+    try {
+      const item = window.sessionStorage.getItem('dark-theme');
+      const res = item ? JSON.parse(item) : true;
 
+      res && window.document.documentElement.classList.add('dark')
+
+    } catch (error) {
+      console.log("HTML BODY: " + error);
+      window.document.documentElement.classList.add('dark')
+    }
+    </script>
 
 
     <noscript>You need to enable JavaScript to run this app.</noscript>

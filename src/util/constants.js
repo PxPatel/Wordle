@@ -41,7 +41,7 @@ export const colorScheme = {
         },
         boxLight: {
             // empty: 'bg-[#E5BF9E]',
-            empty: '',
+            empty: 'bg-[#d5cfe1]',
             correct : 'bg-CORRECT',
             present : 'bg-PRESENT',
             absent : 'bg-ABSENT',

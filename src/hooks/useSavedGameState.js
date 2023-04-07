@@ -2,60 +2,53 @@
 import { useEffect, useState } from "react"
 import { createGameState, createStyleState, randomWordAPI } from "../util/base"
 import useLocalStorage from "./useLocalStorage"
+import { useImmer } from "use-immer"
 
-const useSavedGameState = () => {
-    const [content, setContent] = useLocalStorage('gameData', {
-        'storedGameState' : createGameState,
-        'storedStyleState' : createStyleState,
-        'storedRealWord' : '',
+const useSavedGameState = () => {    
+    const [gameData, setGameData] = useLocalStorage('gameData', {
         'storedPauses': { inPlay: true, loading : false},
         'storedPos' : {currRow : 0, currBox : 0},
     })
     
-    
-    const [gameState, setGameState] = useState(content.storedGameState)
-    const [styleState, setStyleState] = useState(content.storedStyleState)
-    const [realWord, setRealWord] = useState(content.storedRealWord)
-    const [pauses, setPauses] = useState(content.storedPauses)
-    const [pos, setPos] = useState(content.storedPos)
+    const [gameBoard, setGameBoard] = useImmer(gameData.storedGameState || createGameState)
+    const [styleState, setStyleState] = useImmer(gameData.storedStyleState || createStyleState)
+    const [realWord, setRealWord] = useState(gameData.storedRealWord)
+    const [pauses, setPauses] = useState(gameData.storedPauses)
+    const [pos, setPos] = useState(gameData.storedPos)
     const [rowStyle, setRowStyle] = useState({ invalidRow : null, flipRow : null, bounceRow : null })
     
     useEffect(() => {
         const getWord = async() =>{
             setPauses(prev => { return {...prev, loading : true}})
-            let output = content.storedRealWord.length === 5 ? content.storedRealWord : await randomWordAPI()
+            const output = gameData.storedRealWord?.length === 5 ? gameData.storedRealWord : await randomWordAPI()
             setRealWord(output)
             setPauses(prev => { return {...prev, loading : false}})
-            setContent(prev => {return {
-                'storedGameState' : gameState,
-                'storedStyleState' : styleState,
-                'storedRealWord' : output,
-                'storedPauses': { inPlay: pauses.inPlay, loading : false},
-                'storedPos' : {currRow : pos.currRow, currBox : 0},
-                }
+
+            setGameData(prev => { 
+                return {...gameData, 'storedRealWord': output}
             })
         }
         getWord()
     }, [])
     
     useEffect(() =>{
-        setContent({
-            'storedGameState' : gameState,
+        setGameData(prev => { return {
+            'storedGameState' : gameBoard,
             'storedStyleState' : styleState,
             'storedRealWord' : realWord,
             'storedPauses': { inPlay: pauses.inPlay, loading : false},
             'storedPos' : {currRow : pos.currRow, currBox : 0},
-        })
+        }})
     }, [pos.currRow, pauses.inPlay])
 
     return [
-        gameState,
+        gameBoard,
         styleState,
         realWord,
         pauses,
         pos,
         rowStyle,
-        setGameState,
+        setGameBoard,
         setStyleState,
         setPauses,
         setPos,

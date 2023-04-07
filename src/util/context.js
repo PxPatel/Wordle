@@ -1,6 +1,6 @@
 import React, { useContext, createContext } from "react"
-import { deepCopify, dictify, wordAPI } from "./base"
-import { FULL_FLIP_WAIT, INVALID_WAIT, colorScheme, FULL_BOUNCE_WAIT } from "./constants"
+import { dictify, wordAPI } from "./base"
+import { FULL_FLIP_WAIT, INVALID_WAIT, FULL_BOUNCE_WAIT, colorScheme } from "./constants"
 import useSavedGameState from "../hooks/useSavedGameState"
 
 const GameContext = createContext()
@@ -13,13 +13,13 @@ export const useGameState = () =>{
 export function GCProvider({ children }) {
 
     const [
-        gameState,
+        gameBoard,
         styleState,
         realWord,
         pauses,
         pos,
         rowStyle,
-        setGameState,
+        setGameBoard,
         setStyleState,
         setPauses,
         setPos,
@@ -42,17 +42,17 @@ export function GCProvider({ children }) {
     }
 
     function updateLetter(key) { 
-        const nextState = deepCopify(gameState)
-        nextState[pos.currRow][pos.currBox] = key
-        setGameState(nextState)
+        setGameBoard(draft => {
+            draft[pos.currRow][pos.currBox] = key
+        })
         setPos({...pos, currBox : pos.currBox + 1})
     }
 
 
     function deleteLetter(){
-        const nextState = deepCopify(gameState)
-        nextState[pos.currRow][pos.currBox-1] = ""
-        setGameState(nextState)
+        setGameBoard(draft => {
+            draft[pos.currRow][pos.currBox-1] = ''
+        })
         setPos({...pos, currBox : pos.currBox - 1})
     }
 
@@ -66,62 +66,88 @@ export function GCProvider({ children }) {
     }
     
     async function checkValidity() {
-        const validWord = await wordAPI(gameState[pos.currRow].join("")) || false
+        const validWord = await wordAPI(gameBoard[pos.currRow].join(""))
         if(validWord){
-            colorMeUp()
-            flipRow()
-            nextRow()
+            setPauses(prev => { return {...prev, loading : true}})
+            const isGuessCorrect = initialWordCheck(gameBoard, realWord)
+            colorMeUp(isGuessCorrect)
+            flipRow(isGuessCorrect)
+            isGuessCorrect ? bounceRow() : nextRow()
         }
         else{
             animateInvalidRow()
         }   
     }
+    
+    function initialWordCheck(gameBoard, realWord){
+        const guessWord = gameBoard[pos.currRow].join("")
+        return guessWord === realWord
+    }
+    
+    function colorMeUp(isWordCorrect){
+        // const nextState = deepCopify(styleState)
+        // const row = nextState[pos.currRow]
+        // const guessArr = [...gameBoard[pos.currRow]]
+        // const realDict = dictify(realWord)
 
-    function colorMeUp(){
-        const nextState = deepCopify(styleState)
-        const row = nextState[pos.currRow]
-        const guessArr = [...gameState[pos.currRow]]
-        const realDict = dictify(realWord)
+        // for( let i = 0; i < guessArr.length; i++){
+        //     if( guessArr[i] === realDict.get(i)){
+        //         row[i] = `${boxLight.correct} ${boxDark.correct}`
+        //         realDict.delete(i)
+        //     }
+        // }    
 
-        for( let i = 0; i < guessArr.length; i++){
-            if( guessArr[i] === realDict.get(i)){
-                row[i] = `${boxLight.correct} ${boxDark.correct}`
-                realDict.delete(i)
-            }
-        }    
+        // const mapValues = [...realDict.values()]
+        // for(const key of realDict.keys()){
+        //     if(mapValues.includes(guessArr[key])){
+        //         row[key] = `${boxLight.present} ${boxDark.present}` 
+        //         mapValues.splice(mapValues.indexOf(guessArr[key]),1)
+        //     }
+        //     else{ row[key] = `${boxLight.absent} ${boxDark.absent}` }
+        // }       
+        // setStyleState(nextState) 
+        
+        
+        setStyleState(draft => {
+            const row = draft[pos.currRow]
+            const guessArr = [...gameBoard[pos.currRow]]
+            const realDict = dictify(realWord)
 
-        if(realDict.size === 0){
-            setTimeout(() => {
-                setRowStyle(prev => { return {...prev, bounceRow : pos.currRow} })
-                setPauses(prev => { return {...prev, loading : true}})
-            }, FULL_FLIP_WAIT)
-            
-            setTimeout(() => {
-                setRowStyle(prev => { return {...prev, bounceRow : null} })
-                setPauses({loading: false, inPlay : false})
-            }, FULL_BOUNCE_WAIT + FULL_FLIP_WAIT)
-            setStyleState(nextState)        
-            return
-        }
+            for( let i = 0; i < guessArr.length; i++){
+                if( guessArr[i] === realDict.get(i)){
+                    row[i] = `${boxLight.correct} ${boxDark.correct}`
+                    realDict.delete(i)
+                }
+            }    
 
-        const mapValues = [...realDict.values()]
-        for(const key of realDict.keys()){
-            if(mapValues.includes(guessArr[key])){
-                row[key] = `${boxLight.present} ${boxDark.present}` 
-                mapValues.splice(mapValues.indexOf(guessArr[key]),1)
-            }
-            else{ row[key] = `${boxLight.absent} ${boxDark.absent}` }
-        }       
-        setStyleState(nextState)        
+            const mapValues = [...realDict.values()]
+            for(const key of realDict.keys()){
+                if(mapValues.includes(guessArr[key])){
+                    row[key] = `${boxLight.present} ${boxDark.present}` 
+                    mapValues.splice(mapValues.indexOf(guessArr[key]),1)
+                }
+                else{ row[key] = `${boxLight.absent} ${boxDark.absent}` }
+            }       
+        })
     }
 
-    function flipRow(){
-        setPauses(prev => { return {...prev, loading : true}})
+    function flipRow(isWordCorrect){
         setRowStyle(prev => { return {...prev, flipRow : pos.currRow}})
         setTimeout(() => {
             setRowStyle(prev => { return {...prev, flipRow : null}})
-            setPauses(prev => { return {...prev, loading : false}})
+            !isWordCorrect && setPauses(prev => { return {...prev, loading : false}})
         }, FULL_FLIP_WAIT)
+    }
+    
+    function bounceRow(){
+        setTimeout(() => {
+            setRowStyle(prev => { return {...prev, bounceRow : pos.currRow} })
+        }, FULL_FLIP_WAIT)
+        
+        setTimeout(() => {
+            setRowStyle(prev => { return {...prev, bounceRow : null} })
+            setPauses({loading: false, inPlay : false})
+        }, FULL_BOUNCE_WAIT + FULL_FLIP_WAIT)
     }
 
     function animateInvalidRow(){        
@@ -132,7 +158,7 @@ export function GCProvider({ children }) {
     }
 
     const value = {
-        gameState,
+        gameBoard,
         styleState,
         realWord,
         pauses,

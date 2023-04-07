@@ -1,35 +1,28 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import Row from './Row'
+import useFocusOnMe from '../hooks/useAutoFocus'
 import { useGameState } from '../util/context'
 import { colorScheme } from '../util/constants'
 import Modal from './Modal'
 
 const Game = () => {
   
-  const { gameState, pauses, handleKeyChanges, realWord } = useGameState()
+  const { gameBoard, pauses, handleKeyChanges, realWord } = useGameState()
   const { Game } = colorScheme
 
   const [modalShow, setModalShow] = useState(true)
   const closeModal = useCallback(() => setModalShow(false), [])
 
-  
   const gameRef = useRef(null);
-  const [focusOnMe, updateState] = useState()
-  useEffect(() => {
-      if(gameRef.current){
-      gameRef.current.focus();
-      }
-  }, [focusOnMe]);
-  const updateFocus = useCallback(() => updateState({}), [])
+  const [ updateFocus ] = useFocusOnMe(gameRef)
 
   const makeBoard = () => {
-    const board = gameState.map((row,i) => { 
-      return <Row 
-        stateRow= { row } 
-        rowNum= { i }
-        key= { i }/>
-    })
-    return board  
+    return gameBoard.map((row,i) =>
+    <Row 
+      stateRow= { row } 
+      rowNum= { i }
+      key= { i }/>
+    )
   }
 
   return (
@@ -47,5 +40,6 @@ const Game = () => {
     </div>
   )
 }
+
 
 export default Game

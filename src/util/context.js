@@ -1,6 +1,7 @@
-import React, { useContext, createContext, useEffect, useState} from "react"
-import { createStyleState, createGameState, deepCopify, dictify, randomWordAPI, wordAPI } from "./base"
+import React, { useContext, createContext } from "react"
+import { deepCopify, dictify, wordAPI } from "./base"
 import { FULL_FLIP_WAIT, INVALID_WAIT, colorScheme, FULL_BOUNCE_WAIT } from "./constants"
+import useSavedGameState from "../hooks/useSavedGameState"
 
 const GameContext = createContext()
 const { boxDark, boxLight } = colorScheme.Box
@@ -11,53 +12,19 @@ export const useGameState = () =>{
 
 export function GCProvider({ children }) {
 
-    const [gameState, setGameState] = useState(createGameState)
-    const [styleState, setStyleState] = useState(createStyleState)
-    const [realWord, setRealWord] = useState()
-
-    //TODO: Better name for states
-    const [pauses, setPauses] = useState({ inPlay: true, loading : false})
-    const [pos, setPos] = useState({currRow : 0, currBox : 0})
-    const [rowStyle, setRowStyle] = useState({ invalidRow : null, flipRow : null, bounceRow : null })
-
-    useEffect(() => {
-        const getWord = async() =>{
-            setPauses(prev => { return {...prev, loading : true}})
-            let output = await randomWordAPI()
-            setRealWord(output)
-            setPauses(prev => { return {...prev, loading : false}})
-        }
-        getWord()
-    }, [])
- 
-    //TODO: Storage Capability
-    // useEffect(() => {
-    //     if( !(sessionStorage.getItem('PriWordle')) ){
-    //         const game = {
-    //             boardState : gameState.map((arr) => arr.join("")),
-    //             realWord : realWord,
-    //             currRowIndex : pos.currRow,
-    //             inPlay : pauses.inPlay,
-    //         }
-    //         sessionStorage.setItem('PriWordle', JSON.stringify(game))
-    //         console.log("Setted")
-    //     }
-
-    //     else{
-    //         const data = JSON.parse(sessionStorage.getItem('PriWordle'))
-    //         console.table(data)
-
-    //         // // setGameState(prev => data.boardState)
-    //         setRealWord(prev => data.realWord)
-    //         setPos(prev => ({currRow : data['currRowIndex'], currBox : 0}))
-    //         setPauses(prev => ({...pauses, inPlay : data['inPlay']}))
-    //     }
-
-    //     return () => {
-    //         // sessionStorage.clear()
-    //         // alert('Cleared')
-    //     }
-    // }, [realWord])
+    const [
+        gameState,
+        styleState,
+        realWord,
+        pauses,
+        pos,
+        rowStyle,
+        setGameState,
+        setStyleState,
+        setPauses,
+        setPos,
+        setRowStyle
+    ] = useSavedGameState()
     
     function handleKeyChanges(e){
         const key = e.key

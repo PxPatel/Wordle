@@ -8,7 +8,6 @@
         @apply 
         w-8 h-8
         bg-slate-600 
-        /* TODO: Pick Better Colors For Dark Mode Button*/
         rounded-3xl
         transition-all duration-200 ease-linear cursor-pointer
 

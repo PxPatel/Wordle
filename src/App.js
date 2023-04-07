@@ -3,12 +3,6 @@ import NavBar from './components/NavBar';
 import Game from './components/Game';
 import { GCProvider } from './util/context';
 
-const allowVisible = () => {
-  const bodyClass = window.document.documentElement.style
-  bodyClass.visibility = 'visible'
-  bodyClass.opacity = 1
-}
-
 function App() {
 
   return (
@@ -19,8 +13,6 @@ function App() {
             <Game/>
           </div>
       </GCProvider>
-
-      {/* { allowVisible() } */}
      </>
   );
 }

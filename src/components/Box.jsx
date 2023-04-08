@@ -2,34 +2,42 @@ import React, {useEffect , useRef, useState } from 'react'
 import { colorScheme, FLIP_ANIMATION_DURATION } from '../util/constants'
 
 const Box = ({ letter, isInvalid, fill, toFlip, delay, toBounce}) => {
-
   const boxRef = useRef()
   const [colorVal, setColorVal] = useState(`${colorScheme.Box.boxLight.empty} ${colorScheme.Box.boxDark.empty}`)
   const { Box } = colorScheme
 
+  const freshLoadHasOldData = useRef(
+    JSON.parse(window.sessionStorage.getItem('gameData'))?.storedPos?.currRow > 0 ? 1 : 0
+  )
+
   useEffect(() => {
-    if (letter !== ``) {
-      const newClass = boxRef.current.className  + " animate-pop "
+    if (letter !== `` && !freshLoadHasOldData.current) {
+      const newClass = "animate-pop " + boxRef.current.className  
       boxRef.current.className = newClass
-      setTimeout(() => {
-        let idx = (boxRef.current.className).indexOf("animate-pop")
-        let newClass = boxRef.current.className
-        if (idx !== -1) {
-          newClass = (boxRef.current.className).slice(0, idx) + (boxRef.current.className).slice(idx + 'animate-pop'.length)
-        }
-        boxRef.current.className = newClass
-      }, 100)
     }
   }, [letter])
 
   useEffect(() =>
   {
-    if(fill !== ``){
-      setTimeout(() => { 
+    let timerID;
+    if(fill !== `` && !freshLoadHasOldData.current){
+      timerID = setTimeout(() => { 
         setColorVal( prev => fill) 
       }, (FLIP_ANIMATION_DURATION / 2)  + (delay.slice(16, delay.length) * 1))
     }
+    else if(fill !== `` && freshLoadHasOldData.current){
+      setColorVal(prev => fill)
+    }
+    return () => {
+      clearTimeout(timerID)
+    }
   }, [fill, delay])
+
+  useEffect(() => {
+    if(freshLoadHasOldData.current){
+      freshLoadHasOldData.current = 0
+    }
+  }, []) 
 
   return (
     <div 
@@ -37,6 +45,7 @@ const Box = ({ letter, isInvalid, fill, toFlip, delay, toBounce}) => {
       ${toBounce ? 'animate-bounce' : ''}`}
       ref = {boxRef}> 
         {letter}
+
 
     </div>
   )

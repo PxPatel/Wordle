@@ -29,7 +29,7 @@ const Row = ({ stateRow, rowNum}) => {
             toFlip= { rowStyle.flipRow === rowNum }
             toBounce= { rowStyle.bounceRow === rowNum }
             delay= { rowStyle.flipRow === rowNum  || rowStyle.bounceRow === rowNum  ? `animation-delay-${FLIP_DELAY_BETWEEN_TILE*i}`: ''}
-            key= { i } />
+            key= { `${rowNum}${i}` } />
         )
     }
 

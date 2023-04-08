@@ -85,29 +85,6 @@ export function GCProvider({ children }) {
     }
     
     function colorMeUp(isWordCorrect){
-        // const nextState = deepCopify(styleState)
-        // const row = nextState[pos.currRow]
-        // const guessArr = [...gameBoard[pos.currRow]]
-        // const realDict = dictify(realWord)
-
-        // for( let i = 0; i < guessArr.length; i++){
-        //     if( guessArr[i] === realDict.get(i)){
-        //         row[i] = `${boxLight.correct} ${boxDark.correct}`
-        //         realDict.delete(i)
-        //     }
-        // }    
-
-        // const mapValues = [...realDict.values()]
-        // for(const key of realDict.keys()){
-        //     if(mapValues.includes(guessArr[key])){
-        //         row[key] = `${boxLight.present} ${boxDark.present}` 
-        //         mapValues.splice(mapValues.indexOf(guessArr[key]),1)
-        //     }
-        //     else{ row[key] = `${boxLight.absent} ${boxDark.absent}` }
-        // }       
-        // setStyleState(nextState) 
-        
-        
         setStyleState(draft => {
             const row = draft[pos.currRow]
             const guessArr = [...gameBoard[pos.currRow]]

@@ -19,6 +19,7 @@ const Box = ({ letter, isInvalid, fill, toFlip, delay, toBounce}) => {
 
   useEffect(() =>
   {
+    //Try to manipulate the time paramater with bitwise logic and see if it simplifies code
     let timerID;
     if(fill !== `` && !freshLoadHasOldData.current){
       timerID = setTimeout(() => { 

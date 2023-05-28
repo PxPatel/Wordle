@@ -16,17 +16,20 @@ const useSavedGameState = () => {
     const [pauses, setPauses] = useState(gameData.storedPauses)
     const [pos, setPos] = useState(gameData.storedPos)
     const [rowStyle, setRowStyle] = useState({ invalidRow : null, flipRow : null, bounceRow : null })
-    
+
     useEffect(() => {
         const getWord = async() =>{
-            setPauses(prev => { return {...prev, loading : true}})
-            const output = gameData.storedRealWord?.length === 5 ? gameData.storedRealWord : await randomWordAPI()
-            setRealWord(output)
-            setPauses(prev => { return {...prev, loading : false}})
 
-            setGameData(prev => { 
-                return {...gameData, 'storedRealWord': output}
-            })
+            if(gameData.storedRealWord?.length === 5){
+                setRealWord(gameData.storedRealWord)
+            }
+            else{
+                setPauses(prev => { return {...prev, loading : true}})
+                const output = await randomWordAPI()
+                setRealWord(output)
+                setPauses(prev => { return {...prev, loading : false}})
+                setGameData(prev => { return {...gameData, 'storedRealWord': output}})
+            }
         }
         getWord()
     }, [])

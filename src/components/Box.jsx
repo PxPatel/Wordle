@@ -46,8 +46,6 @@ const Box = ({ letter, isInvalid, fill, toFlip, delay, toBounce}) => {
       ${toBounce ? 'animate-bounce' : ''}`}
       ref = {boxRef}> 
         {letter}
-
-
     </div>
   )
 }

@@ -21,9 +21,10 @@ const Game = () => {
     return gameBoard.map((row, rowNum) =>
     <Row 
       stateRow = { row }
-      key= { rowNum }>
+      rowNum = { rowNum }
+      key= { rowNum }/>
 
-      { 
+      /* { 
         row.map((spite,j) =>
             <Box
             letter= { spite } 
@@ -35,10 +36,10 @@ const Game = () => {
             toBounce= { rowStyle.bounceRow === rowNum }
             delay= { rowStyle.flipRow === rowNum  || rowStyle.bounceRow === rowNum  ? `animation-delay-${FLIP_DELAY_BETWEEN_TILE*j}`: ''}
             key= { `${rowNum}${j}` } /> )
-      }
+      } */
 
-      </Row>
-    )
+      // </Row>
+    ) 
   }
 
   return (

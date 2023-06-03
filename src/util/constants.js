@@ -12,6 +12,13 @@ export const FULL_BOUNCE_WAIT = BOUNCE_ANIMATION_DURATION + (BOUNCE_DELAY_BETWEE
 
 export const INVALID_WAIT = 300 
 
+export const keyboardLayout = [
+    ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
+    ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
+    ['Z', 'X', 'C', 'V', 'B', 'N', 'M'],
+  ];
+
+
 export const colorScheme = {
 
     //A nice blue color = bg-[#145266]
@@ -38,6 +45,9 @@ export const colorScheme = {
             correct : 'dark:bg-CORRECT',
             present : 'dark:bg-PRESENT',
             absent : 'dark:bg-ABSENT', 
+            text: 'dark:text-white',
+            emptyBorder: 'dark:border-[#565758]',
+            filledBorder: 'dark:border-[#3a3a3c]',
         },
         boxLight: {
             // empty: 'bg-[#E5BF9E]',
@@ -45,14 +55,10 @@ export const colorScheme = {
             correct : 'bg-CORRECT',
             present : 'bg-PRESENT',
             absent : 'bg-ABSENT',
+            text: 'text-black',        
+            emptyBorder: 'border-[#787891]',
+            filledBorder: 'border-[#49495a]',
         },
-        textDark: 'dark:text-white',
-        textLight: 'text-black',
-
-        emptyBorderLight: 'border-[#787891]',
-        filledBorderLight: 'border-[#49495a]',
-        emptyBorderDark: 'dark:border-[#565758]',
-        filledBorderDark: 'dark:border-[#3a3a3c]',
     },
 
     Modal: {
@@ -60,6 +66,15 @@ export const colorScheme = {
         bgDark: 'dark:bg-[#546776]/[0.95]',
         textLight: 'text-white',
         textDark: 'dark:text-white',
+    },
 
+    Keyboard: {
+        tileColors: {
+            correct: 'bg-CORRECT dark:bg-CORRECT',
+            present: 'bg-PRESENT dark:bg-PRESENT',
+            absent: 'bg-[#d5cfe1] dark:bg-ABSENT',
+        },
+        textLight: '',
+        textDark: '',
     }
 }

@@ -80,8 +80,7 @@ export function GCProvider({ children }) {
     }
     
     function initialWordCheck(gameBoard, realWord){
-        const guessWord = gameBoard[pos.currRow].join("")
-        return guessWord === realWord
+        return realWord === gameBoard[pos.currRow].join("")
     }
     
     function colorMeUp(isWordCorrect){
@@ -95,8 +94,9 @@ export function GCProvider({ children }) {
                     row[i] = `${boxLight.correct} ${boxDark.correct}`
                     realDict.delete(i)
                 }
-            }    
-
+            }
+            
+            if(isWordCorrect){ return }
             const mapValues = [...realDict.values()]
             for(const key of realDict.keys()){
                 if(mapValues.includes(guessArr[key])){

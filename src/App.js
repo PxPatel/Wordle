@@ -1,14 +1,16 @@
 import './App.css';
 import NavBar from './components/NavBar';
-import Game from './components/Game';
 import { GCProvider } from './util/context';
+import { colorScheme } from './util/constants'
+import Game from './components/Game';
+// import Keyboard from './components/Keyboard';
 
 function App() {
 
   return (
      <>
       <GCProvider>
-          <div id='app' className="flex flex-col relative min-h-screen min-w-screen max-h-screen max-w-screen m-0 select-none">
+          <div id='app' className={`flex flex-col relative min-h-screen min-w-screen max-h-screen max-w-screen m-0 ${colorScheme.Game.bgLight} ${colorScheme.Game.bgDark} select-none`}>
             <NavBar/>
             <Game/>
           </div>

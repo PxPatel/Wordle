@@ -27,7 +27,7 @@
     .boxRes{
         @apply
         min-w-[30px]
-        max-w-[60px]
+        max-w-[55px] /* PreKey = 60px */
 
         /* If under md, grow/shrink at 6%, otherwise stay 60px */
         wP-[6]
@@ -41,7 +41,7 @@
     .letterRes{
         @apply
         text-[1rem]
-        md:text-[2rem]
+        md:text-[1.75rem] /* PreKey = 2rem */
     }
 }
 

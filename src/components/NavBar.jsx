@@ -11,7 +11,7 @@ const NavBar = () => {
   const { NavBar } = colorScheme
 
   return (
-    <div className={`relative w-full h-24 ${NavBar.bgDark} ${NavBar.bgLight} border-b-2 border-b-[#3e4f6d]`} >
+    <div className={`relative w-full h-[5.5rem] ${NavBar.bgDark} ${NavBar.bgLight} border-b-2 border-b-[#3e4f6d]`} >
       <div 
         className={`relative h-full font-TMS centerStage place-items-center ${NavBar.textDark} ${NavBar.textLight} text-4xl font-extrabold tracking-wide subpixel-antialiased`}
         tabIndex={-1}
@@ -39,7 +39,7 @@ const NavBar = () => {
           )
           }
           <span className="sidebar-tooltip scale-0 sm:group-hover:scale-100">
-            Toggle {darkTheme ? 'Dark' : 'Light'} Mode
+            Toggle {darkTheme ? 'Light' : 'Dark'} Mode
           </span>
       </div>
 

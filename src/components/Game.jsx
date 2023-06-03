@@ -1,17 +1,16 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Row from './Row'
 import useFocusOnMe from '../hooks/useAutoFocus'
 import { useGameState } from '../util/context'
-import { colorScheme } from '../util/constants'
 import Modal from './Modal'
+import Keyboard from './Keyboard'
 
 const Game = () => {
   
-  const { gameBoard, pauses, handleKeyChanges, realWord } = useGameState()
-  const { Game } = colorScheme
+  const { gameBoard, pauses, handleKeyChanges, realWord, rowStyle } = useGameState()
 
-  const [modalShow, setModalShow] = useState(true)
-  const closeModal = useCallback(() => setModalShow(false), [])
+  const [modalShow, setModalShow] = useState(true)  
+
 
   const gameRef = useRef(null);
   const [ updateFocus ] = useFocusOnMe(gameRef)
@@ -27,15 +26,20 @@ const Game = () => {
 
   return (
     <div 
-      className={`relative centerStage flex-col flex-1 ${Game.bgLight} ${Game.bgDark} min-h-fit min-w-screen outline-none`}
+      className={`relative centerStage flex-col flex-1 bg-transparent outline-none`}
       onKeyDown={ pauses.inPlay && !pauses.loading ? handleKeyChanges : undefined }
       tabIndex={-1}
       ref= { gameRef }
       onBlur= { updateFocus }
       >
+  
       { makeBoard() }
+      
+      <Keyboard 
+        rowEntered={rowStyle.flipRow}
+        />
 
-      {((modalShow && !pauses.inPlay && !pauses.loading) || false) && <Modal content={realWord} onClose= {closeModal}/>}
+      {((modalShow && !pauses.inPlay && !pauses.loading) || false) && <Modal content={realWord} onClose= {(() => setModalShow(false))}/>}
 
     </div>
   )

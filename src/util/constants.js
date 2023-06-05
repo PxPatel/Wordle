@@ -72,9 +72,10 @@ export const colorScheme = {
         tileColors: {
             correct: 'bg-CORRECT dark:bg-CORRECT',
             present: 'bg-PRESENT dark:bg-PRESENT',
-            absent: 'bg-[#d5cfe1] dark:bg-ABSENT',
+            absent: 'bg-ABSENT dark:bg-ABSENT',
         },
-        textLight: '',
-        textDark: '',
+        text: 'text-black dark:text-white',
+        uncolored: 'bg-gray-700 dark:bg-'
+
     }
 }

@@ -1,5 +1,7 @@
-import React, { memo,  useState, useEffect, useCallback, useLayoutEffect, useRef } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { memo, useEffect, useCallback, useLayoutEffect, useRef } from 'react'
 import { FULL_FLIP_WAIT, keyboardLayout, colorScheme } from '../util/constants'
+import { useImmer } from 'use-immer'
 
 const colorWeight = {
   [colorScheme.Keyboard.tileColors.absent] : 0,
@@ -19,7 +21,7 @@ const Keyboard = ({ rowEntered }) => {
 
     //When keybutton is clicked: Change context. Handle with a callback from context provider
 
-    const [letterDict, setLetterDict] = useState({})
+    const [letterDict, setLetterDict] = useImmer({})
     
     //If has oldData, return 1, else 0
     const onMountHasOldData = useRef(
@@ -37,7 +39,7 @@ const Keyboard = ({ rowEntered }) => {
                 unique[letter] = styleArr[i][j]
               }
 
-              //FIXME: The boolean logic to account for the special cases. 
+              //DONE: FIXME - The boolean logic to account for the special cases. 
               //Idea: Compare colorweights and heavier weight becomes new color
               else if(unique[letter] !== styleArr[i][j] 
                       && colorWeight[unique[letter]] < colorWeight[styleArr[i][j]]){
@@ -54,10 +56,12 @@ const Keyboard = ({ rowEntered }) => {
         for (let i = 0; i < gameRow.length; i++) {
             const letter = gameRow[i];
             
-            if(!(Object.keys(unique)).includes(letter)) {
+            //If Letter is not used: Add it to the Dict and the first Style seen
+            if(!(Object.keys(unique).includes(letter))) {
               unique[letter] = styleRow[i]
             }
-            else if(unique[letter] === colorScheme.Keyboard.tileColors.present && styleRow[i] === colorScheme.Keyboard.tileColors.correct){
+            else if(unique[letter] !== styleRow[i] 
+                    && colorWeight[unique[letter]] < colorWeight[styleRow[i]]){
               unique[letter] = styleRow[i]
             }
         }
@@ -103,7 +107,6 @@ const Keyboard = ({ rowEntered }) => {
                 setLetterDict(usedLetters)
             }, FULL_FLIP_WAIT);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [rowEntered, newRowFilter])
 
     //Change variable as no longer onMount 
@@ -117,10 +120,8 @@ const Keyboard = ({ rowEntered }) => {
      * Okay: So 3 Stages: 
      *  DONE: 1. If it is new reload with old data: fetch the localStorage and run the full 2D array algo
      *  
-     * 
      *  DONE: 2. If it a new reload with no data: Do nothing in terms of colors
      *
-     * 
      *  DONE: 3. If it not a reload, but has new data: Run a simple 1D array search Algo
      * 
      * LETS FRICKING GO. WE FINISHED
@@ -136,12 +137,15 @@ const Keyboard = ({ rowEntered }) => {
                 className='centerStage mb-2 h-fit w-fit'>
                     {row.map((letter) =>
                         <div
-                        // FIXME: Why is LightMode not working...
+                        // DONE: FIXME - Why is LightMode not working...
+                            id={letter}
                             key={crypto.randomUUID()}
-                            className={`centerStage box-border h-[3.25rem] w-[2.5rem] border border-gray-600 rounded mx-1 font-semibold text-[1.25rem] bg-gray-700
-                                ${letter in letterDict ? letterDict[letter] : null}     
-                            `}
-                            onClick={() => console.log(letter)}>
+                            // MAKE CONSTANTS FOR BG AND BORDER and TEXT in constants.js
+                            className={`centerStage box-border h-[3.25rem] w-[2.5rem] border border-gray-600 rounded mx-1 font-semibold text-[1.25rem] ${colorScheme.Keyboard.text} ${letter in letterDict ? letterDict[letter] : colorScheme.Keyboard.uncolored} hover:cursor-pointer`}
+                            //It works perfectly for HandleKeyChanges, but not for memo'd function
+                            //So stupidddddd
+                            // onClick={() => keyboardKeyPress({key: letter})
+                            >
                             {letter}
                         </div>
                     )}

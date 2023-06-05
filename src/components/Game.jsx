@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useRef, useState } from 'react'
 import Row from './Row'
 import useFocusOnMe from '../hooks/useAutoFocus'
@@ -10,6 +11,10 @@ const Game = () => {
   const { gameBoard, pauses, handleKeyChanges, realWord, rowStyle } = useGameState()
 
   const [modalShow, setModalShow] = useState(true)  
+
+  // const keyboardKeyPress = useCallback((e) => {
+  //   handleKeyChanges(e)
+  // }, [])
 
 
   const gameRef = useRef(null);
@@ -37,6 +42,7 @@ const Game = () => {
       
       <Keyboard 
         rowEntered={rowStyle.flipRow}
+        // keyboardKeyPress={keyboardKeyPress}
         />
 
       {((modalShow && !pauses.inPlay && !pauses.loading) || false) && <Modal content={realWord} onClose= {(() => setModalShow(false))}/>}

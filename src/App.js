@@ -7,6 +7,9 @@ import Game from './components/Game';
 
 function App() {
 
+  //TODO: Maybe we can seperate Game and Key if we define a state here and then pass the set into Game
+  //State would describe if a valid 'ENTER' has been pressed
+
   return (
      <>
       <GCProvider>

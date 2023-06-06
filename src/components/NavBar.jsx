@@ -10,6 +10,9 @@ const NavBar = () => {
   
   const { NavBar } = colorScheme
 
+  //TODO: Add a switch giving user the option to use keyboard
+  //Would use a state defined in /App and then pass that prop into Game to shift stuff
+
   return (
     <div className={`relative w-full h-[5.5rem] ${NavBar.bgDark} ${NavBar.bgLight} border-b-2 border-b-[#3e4f6d]`} >
       <div 

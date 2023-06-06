@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { memo, useEffect, useCallback, useLayoutEffect, useRef } from 'react'
-import { FULL_FLIP_WAIT, keyboardLayout, colorScheme } from '../util/constants'
+import { FULL_FLIP_WAIT, keyboardLayout, colorScheme } from '../../util/constants'
 import { useImmer } from 'use-immer'
 
 const colorWeight = {
@@ -9,7 +9,7 @@ const colorWeight = {
   [colorScheme.Keyboard.tileColors.correct]: 2
 }
 
-const Keyboard = ({ rowEntered }) => {
+const Keyboard = ({ rowEntered, onPress }) => {
 
     //Done: Put the data fetch in the setTimeOut, so that you don't use many props and don't trigger rerender
 
@@ -144,7 +144,7 @@ const Keyboard = ({ rowEntered }) => {
                             className={`centerStage box-border h-[3.25rem] w-[2.5rem] border border-gray-600 rounded mx-1 font-semibold text-[1.25rem] ${colorScheme.Keyboard.text} ${letter in letterDict ? letterDict[letter] : colorScheme.Keyboard.uncolored} hover:cursor-pointer`}
                             //It works perfectly for HandleKeyChanges, but not for memo'd function
                             //So stupidddddd
-                            // onClick={() => keyboardKeyPress({key: letter})
+                            onClick={() => onPress({key: letter})}
                             >
                             {letter}
                         </div>

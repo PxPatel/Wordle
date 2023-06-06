@@ -4,18 +4,13 @@ import Row from './Row'
 import useFocusOnMe from '../hooks/useAutoFocus'
 import { useGameState } from '../util/context'
 import Modal from './Modal'
-import Keyboard from './Keyboard'
+import KeyboardWrapper from './Keyboard/KeyboardWrapper'
 
 const Game = () => {
   
-  const { gameBoard, pauses, handleKeyChanges, realWord, rowStyle } = useGameState()
+  const { gameBoard, pauses, handleKeyChanges: onPress, realWord, rowStyle } = useGameState()
 
   const [modalShow, setModalShow] = useState(true)  
-
-  // const keyboardKeyPress = useCallback((e) => {
-  //   handleKeyChanges(e)
-  // }, [])
-
 
   const gameRef = useRef(null);
   const [ updateFocus ] = useFocusOnMe(gameRef)
@@ -32,7 +27,7 @@ const Game = () => {
   return (
     <div 
       className={`relative centerStage flex-col flex-1 bg-transparent outline-none`}
-      onKeyDown={ pauses.inPlay && !pauses.loading ? handleKeyChanges : undefined }
+      onKeyDown={ pauses.inPlay && !pauses.loading ? onPress : undefined }
       tabIndex={-1}
       ref= { gameRef }
       onBlur= { updateFocus }
@@ -40,9 +35,9 @@ const Game = () => {
   
       { makeBoard() }
       
-      <Keyboard 
+      <KeyboardWrapper
         rowEntered={rowStyle.flipRow}
-        // keyboardKeyPress={keyboardKeyPress}
+        onPress={onPress}
         />
 
       {((modalShow && !pauses.inPlay && !pauses.loading) || false) && <Modal content={realWord} onClose= {(() => setModalShow(false))}/>}

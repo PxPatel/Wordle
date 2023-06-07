@@ -41,6 +41,8 @@ export function GCProvider({ children }) {
         }
     }
 
+    //TODO: Add HardMode Algo
+
     function updateLetter(key) { 
         setGameBoard(draft => {
             draft[pos.currRow][pos.currBox] = key

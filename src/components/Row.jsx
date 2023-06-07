@@ -1,6 +1,6 @@
 import React, {memo} from 'react'
 import { FLIP_DELAY_BETWEEN_TILE } from '../util/constants'
-import { useGameState } from '../util/context'
+import { useGameState } from '../util/gameContext'
 import Box from './Box'
 
 

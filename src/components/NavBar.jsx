@@ -3,23 +3,31 @@ import useDarkMode from '../hooks/useDarkMode';
 import { FaSun, FaMoon } from 'react-icons/fa';
 import { colorScheme } from '../util/constants';
 
-const NavBar = () => {
+const NavBar = ({ setKB }) => {
   const [darkTheme, setDarkTheme] = useDarkMode();
   const handleMode = () => setDarkTheme(!darkTheme);
   const toggleAllowed = useRef(true)
   
   const { NavBar } = colorScheme
 
-  //TODO: Add a switch giving user the option to use keyboard
-  //Would use a state defined in /App and then pass that prop into Game to shift stuff
-
   return (
     <div className={`relative w-full h-[5.5rem] ${NavBar.bgDark} ${NavBar.bgLight} border-b-2 border-b-[#3e4f6d]`} >
+
       <div 
         className={`relative h-full font-TMS centerStage place-items-center ${NavBar.textDark} ${NavBar.textLight} text-4xl font-extrabold tracking-wide subpixel-antialiased`}
         tabIndex={-1}
         >
         Wordle
+      </div>
+
+      <div
+        //FIXME: New design
+        className="dmButton absolute centerStage min-w-fit top-1/2 left-[80%] -translate-y-1/2 group"
+        // onClick={() => setKB(prev => !prev)}
+        onClick={() => setKB(curr => !curr)}
+        tabIndex={0}
+        >
+          K
       </div>
 
       <div 
@@ -41,7 +49,7 @@ const NavBar = () => {
             <FaMoon size='24' className='hover:text-pink-600' />
           )
           }
-          <span className="sidebar-tooltip scale-0 sm:group-hover:scale-100">
+          <span className="sidebar-tooltip scale-0 group-hover:scale-100">
             Toggle {darkTheme ? 'Light' : 'Dark'} Mode
           </span>
       </div>

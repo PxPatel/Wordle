@@ -33,32 +33,6 @@ const Keyboard = ({ rowEntered, onPress }) => {
     const getLetterPressed = useCallback(({key}) => {
         setLetterPressed(key)
     }, [])
-
-    const getStuff = useMemo(() =>
-    <div id='keyboard-container'
-        className='relative centerStage flex-col text-white w-full mt-5 font-TMS'>
-        {keyboardLayout.map((row, rowIndex) =>
-            <div 
-                id={`row-${rowIndex}`}
-                key={crypto.randomUUID()} 
-                className='centerStage mb-2 h-fit w-fit'>
-                    {row.map((letter) =>
-                        <div
-                        // DONE: FIXME - Why is LightMode not working...
-                            id={letter}
-                            key={crypto.randomUUID()}
-                            // MAKE CONSTANTS FOR BG AND BORDER and TEXT in constants.js
-                            className={`centerStage box-border h-[3.25rem] w-[2.5rem] border border-gray-600 rounded mx-1 font-semibold text-[1.25rem] ${colorScheme.Keyboard.text} ${letter in letterDict ? letterDict[letter] : colorScheme.Keyboard.uncolored} hover:cursor-pointer`}
-                            //It works perfectly for HandleKeyChanges, but not for memo'd function
-                            //So stupidddddd
-                            onClick={() => getLetterPressed({key: letter})}
-                            >
-                            {letter}
-                        </div>
-                    )}
-            </div>
-        )}
-    </div>, [letterDict])
     
     //If has oldData, return 1, else 0
     const onMountHasOldData = useRef(
@@ -166,9 +140,34 @@ const Keyboard = ({ rowEntered, onPress }) => {
     
 
   return (
-    <div>
-      { getStuff }
-    </div>
+    <>
+      { useMemo(() =>
+      <div id='keyboard-container'
+          className='relative centerStage flex-col text-white w-full mt-5 font-TMS'>
+          {keyboardLayout.map((row, rowIndex) =>
+              <div 
+                  id={`row-${rowIndex}`}
+                  key={crypto.randomUUID()} 
+                  className='centerStage mb-2 h-fit w-fit'>
+                      {row.map((letter) =>
+                          <div
+                          // DONE: FIXME - Why is LightMode not working...
+                              id={letter}
+                              key={crypto.randomUUID()}
+                              // MAKE CONSTANTS FOR BG AND BORDER and TEXT in constants.js
+                              className={`centerStage box-border h-[3.25rem] w-[2.5rem] border border-gray-600 rounded mx-1 font-semibold text-[1.25rem] ${colorScheme.Keyboard.text} ${letter in letterDict ? letterDict[letter] : colorScheme.Keyboard.uncolored} hover:cursor-pointer`}
+                              //It works perfectly for HandleKeyChanges, but not for memo'd function
+                              //So stupidddddd
+                              onClick={() => getLetterPressed({key: letter})}
+                              >
+                              {letter}
+                          </div>
+                      )}
+              </div>
+          )}
+      </div>,
+      [letterDict]) }
+    </>
   )
 }
 

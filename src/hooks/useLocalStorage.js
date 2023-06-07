@@ -1,10 +1,12 @@
 import { useState } from "react";
 
-const useLocalStorage = (key, initialValue) => {
+const useLocalStorage = (key, initialValue, saveInitialValue) => {
     const [storedValue, setStoredValue] = useState(() => {
       try {
         const item = window.sessionStorage.getItem(key);
+        !item && saveInitialValue && window.sessionStorage.setItem(key, JSON.stringify(initialValue))
         return item ? JSON.parse(item) : initialValue;
+
       } catch (error) {
         console.log(error);
         return initialValue;

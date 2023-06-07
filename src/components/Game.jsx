@@ -2,14 +2,14 @@
 import React, { useRef, useState } from 'react'
 import Row from './Row'
 import useFocusOnMe from '../hooks/useAutoFocus'
-import { useGameState } from '../util/context'
+import { useGameState } from '../util/gameContext'
 import Modal from './Modal'
 import Keyboard from './Keyboard/Keyboard'
 
-const Game = () => {
+const Game = ({ activeKB }) => {
   
   const { gameBoard, pauses, handleKeyChanges: onPress, realWord, rowStyle } = useGameState()
-
+  
   const [modalShow, setModalShow] = useState(true)  
 
   const gameRef = useRef(null);
@@ -35,10 +35,10 @@ const Game = () => {
   
       { makeBoard() }
       
-      <Keyboard
+      { activeKB && <Keyboard
         rowEntered={rowStyle.flipRow}
         onPress={onPress}
-        />
+        /> }
 
       {((modalShow && !pauses.inPlay && !pauses.loading) || false) && <Modal content={realWord} onClose= {(() => setModalShow(false))}/>}
 

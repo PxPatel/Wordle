@@ -2,18 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+/* FIXME: Add Responsiveness to Keyboard, and also buttons in NavBar */
+
 @layer components{
 
     .dmButton{
         @apply 
         w-8 h-8
-        bg-slate-600 
+        bg-slate-500
+        dark:bg-slate-600 
         rounded-3xl
-        transition-all duration-200 ease-linear cursor-pointer
-
+        transition-all duration-200 ease-linear 
+        cursor-pointer
         hover:rounded-xl
-        dark:bg-gray-700
+    }
 
+    .optKeyboardButton{
+        @apply
+        w-8 h-8
+        bg-slate-500
+        dark:bg-slate-600 
+        rounded-lg
+        transition-all duration-200 ease-linear
+        cursor-pointer
     }
     
     .sidebar-tooltip {

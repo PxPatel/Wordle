@@ -9,7 +9,7 @@ const colorWeight = {
   [colorScheme.Keyboard.tileColors.correct]: 2
 }
 
-const Keyboard = ({ rowEntered, onPress }) => {
+const Keyboard = ({ rowEntered, onPress}) => {
 
     //Done: Put the data fetch in the setTimeOut, so that you don't use many props and don't trigger rerender
 

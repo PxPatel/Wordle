@@ -1,12 +1,14 @@
 import React, { useRef } from 'react'
 import useDarkMode from '../hooks/useDarkMode';
-import { FaSun, FaMoon } from 'react-icons/fa';
+import { FaSun, FaMoon } from 'react-icons/fa'
+import { TbKeyboardShow, TbKeyboardHide } from 'react-icons/tb';
 import { colorScheme } from '../util/constants';
 
-const NavBar = ({ setKB }) => {
+const NavBar = ({ activeKB, setKB }) => {
   const [darkTheme, setDarkTheme] = useDarkMode();
-  const handleMode = () => setDarkTheme(!darkTheme);
   const toggleAllowed = useRef(true)
+  const handleMode = () => setDarkTheme(!darkTheme);
+ 
   
   const { NavBar } = colorScheme
 
@@ -21,13 +23,15 @@ const NavBar = ({ setKB }) => {
       </div>
 
       <div
-        //FIXME: New design
-        className="dmButton absolute centerStage min-w-fit top-1/2 left-[80%] -translate-y-1/2 group"
-        // onClick={() => setKB(prev => !prev)}
+        className="optKeyboardButton absolute centerStage min-w-fit top-1/2 left-[80%] -translate-y-1/2 group"
         onClick={() => setKB(curr => !curr)}
         tabIndex={0}
         >
-          K
+          { activeKB ? (
+            <TbKeyboardHide size='22' className='hover:text-[#06B6D4]'/>
+          ) : (
+            <TbKeyboardShow size='22' className='hover:text-cyan-500'/>
+          )}
       </div>
 
       <div 
@@ -44,9 +48,9 @@ const NavBar = ({ setKB }) => {
       >
 
         {darkTheme ? ( 
-            <FaSun size='24' className='hover:text-pink-600' />
+            <FaSun size='24' className='hover:text-[#F87171]' />
           ) : (
-            <FaMoon size='24' className='hover:text-pink-600' />
+            <FaMoon size='24' className='hover:text-[#F87171]' />
           )
           }
           <span className="sidebar-tooltip scale-0 group-hover:scale-100">

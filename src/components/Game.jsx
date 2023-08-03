@@ -4,7 +4,7 @@ import Row from './Row'
 import useFocusOnMe from '../hooks/useAutoFocus'
 import { useGameState } from '../util/gameContext'
 import Modal from './Modal'
-import Keyboard from './Keyboard/Keyboard'
+import Keyboard from './Keyboard'
 
 const Game = ({ activeKB }) => {
   
@@ -36,7 +36,7 @@ const Game = ({ activeKB }) => {
       { makeBoard() }
       
       { activeKB && <Keyboard
-        rowEntered={rowStyle.flipRow}
+        rowEntered={rowStyle.flipRow}      
         onPress={onPress}
         /> }
 

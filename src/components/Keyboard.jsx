@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useCallback, useLayoutEffect, useRef, useMemo, useState } from 'react'
-import { FULL_FLIP_WAIT, keyboardLayout, colorScheme } from '../../util/constants'
+import { FULL_FLIP_WAIT, keyboardLayout, colorScheme } from '../util/constants'
 import { useImmer } from 'use-immer'
 
 const colorWeight = {

@@ -5,19 +5,27 @@ import { TbKeyboardShow, TbKeyboardHide } from 'react-icons/tb';
 import { colorScheme } from '../util/constants';
 
 const NavBar = ({ activeKB, setKB }) => {
+
+
   const [darkTheme, setDarkTheme] = useDarkMode();
+  const handleMode = () => setDarkTheme(!darkTheme)
+
   const toggleAllowed = useRef(true)
-  const handleMode = () => setDarkTheme(!darkTheme);
- 
-  
-  const { NavBar } = colorScheme
+
+  const { NavBar: NavBarColor } = colorScheme
+
+  const resetGame = () => {
+    window.sessionStorage.removeItem('gameData')
+    window.location.reload()
+  }
 
   return (
-    <div className={`relative w-full h-[5.5rem] ${NavBar.bgDark} ${NavBar.bgLight} border-b-2 border-b-[#3e4f6d]`} >
+    <div className={`relative w-full h-[5.5rem] ${NavBarColor.bgDark} ${NavBarColor.bgLight} border-b-2 border-b-[#3e4f6d]`} >
 
       <div 
-        className={`relative h-full font-TMS centerStage place-items-center ${NavBar.textDark} ${NavBar.textLight} text-4xl font-extrabold tracking-wide subpixel-antialiased`}
+        className={`relative h-full font-TMS centerStage place-items-center ${NavBarColor.textDark} ${NavBarColor.textLight} text-4xl font-extrabold tracking-wide subpixel-antialiased`}
         tabIndex={-1}
+        onClick={resetGame}
         >
         Wordle
       </div>

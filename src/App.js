@@ -8,7 +8,6 @@ import './App.css';
 function App() {
   
 
-  //TODO: New Idea: Click on the Wordle Logo and cause a reset with new word
   const [activeKeyboard, setActiveKeyBoard] = useState(true)
 
   return (

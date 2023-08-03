@@ -1,4 +1,4 @@
-import React, { useContext, createContext } from "react"
+import React, { useContext, createContext, useRef } from "react"
 import { dictify, wordAPI } from "./base"
 import { FULL_FLIP_WAIT, INVALID_WAIT, FULL_BOUNCE_WAIT, colorScheme } from "./constants"
 import useSavedGameState from "../hooks/useSavedGameState"
@@ -40,8 +40,6 @@ export function GCProvider({ children }) {
             checkValidity()
         }
     }
-
-    //TODO: Add HardMode Algo
 
     function updateLetter(key) { 
         setGameBoard(draft => {

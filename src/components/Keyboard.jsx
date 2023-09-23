@@ -11,16 +11,6 @@ const colorWeight = {
 
 const Keyboard = ({ rowEntered, onPress}) => {
 
-    //Done: Put the data fetch in the setTimeOut, so that you don't use many props and don't trigger rerender
-
-    //When init render: Checks for LocalStorage gameBoard. If found, checks each letter and changes dict
-
-    //Upon entering a word, the algo reruns on the current row, and checks for new letters, immediately coloring the tiles
-
-    //Memory will be checked on init render, and states will used thereafter
-
-    //When keybutton is clicked: Change context. Handle with a callback from context provider
-
     const [letterDict, setLetterDict] = useImmer({})
 
     const [letterPressed, setLetterPressed] = useState(null)
@@ -39,7 +29,6 @@ const Keyboard = ({ rowEntered, onPress}) => {
         JSON.parse(window.sessionStorage.getItem('gameData'))?.storedPos?.currRow > 0 ? 1 : 0
     )
 
-    //DONE: Works Well. Fix the Algo to account for letters that were yellow and now green
     const fullGameBoardFilter = useCallback((gameArr, styleArr) => {
         const unique = {}
         for (let i = 0; i < gameArr.length; i++) {
@@ -49,9 +38,6 @@ const Keyboard = ({ rowEntered, onPress}) => {
               if(!(Object.keys(unique)).includes(letter)) {
                 unique[letter] = styleArr[i][j]
               }
-
-              //DONE: FIXME - The boolean logic to account for the special cases. 
-              //Idea: Compare colorweights and heavier weight becomes new color
               else if(unique[letter] !== styleArr[i][j] 
                       && colorWeight[unique[letter]] < colorWeight[styleArr[i][j]]){
                 unique[letter] = styleArr[i][j]
@@ -79,21 +65,6 @@ const Keyboard = ({ rowEntered, onPress}) => {
 
         return unique
     }, [])
-
-    // useEffect(() => {
-    //     //Fix for showing colors after a reload
-        
-    //     if(rowState.flipRow !== null ){
-    //         const result = fullGameBoardFilter(gameState, styleState)
-    //         console.log(result)
-
-    //         setTimeout(() => {
-    //             setLetterDict(result)
-    //         }, FULL_FLIP_WAIT)
-    //     }   
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [rowState])
-
 
     useLayoutEffect(() => {
         //Only if there is old data, run full 2D array search
@@ -126,17 +97,6 @@ const Keyboard = ({ rowEntered, onPress}) => {
           onMountHasOldData.current = 0
         }
       }, []) 
-
-    /**
-     * Okay: So 3 Stages: 
-     *  DONE: 1. If it is new reload with old data: fetch the localStorage and run the full 2D array algo
-     *  
-     *  DONE: 2. If it a new reload with no data: Do nothing in terms of colors
-     *
-     *  DONE: 3. If it not a reload, but has new data: Run a simple 1D array search Algo
-     * 
-     * LETS FRICKING GO. WE FINISHED
-     */
     
 
   return (
@@ -151,13 +111,9 @@ const Keyboard = ({ rowEntered, onPress}) => {
                   className='centerStage mb-2 h-fit w-fit'>
                       {row.map((letter) =>
                           <div
-                          // DONE: FIXME - Why is LightMode not working...
                               id={letter}
                               key={crypto.randomUUID()}
-                              // MAKE CONSTANTS FOR BG AND BORDER and TEXT in constants.js
                               className={`centerStage box-border h-[3.25rem] w-[2.5rem] border border-gray-600 rounded mx-1 font-semibold text-[1.25rem] ${colorScheme.Keyboard.text} ${letter in letterDict ? letterDict[letter] : colorScheme.Keyboard.uncolored} hover:cursor-pointer`}
-                              //It works perfectly for HandleKeyChanges, but not for memo'd function
-                              //So stupidddddd
                               onClick={() => getLetterPressed({key: letter})}
                               >
                               {letter}
@@ -172,23 +128,3 @@ const Keyboard = ({ rowEntered, onPress}) => {
 }
 
 export default Keyboard
-
-/**
- * 
- * I need a keyboard that will change colors based on the output of a user's word
- * Shape of Keyboard: How to create the qwerty shape of the keyboard
- * 
- * Passing Info: How is information going to pass down to color the keytiles
- * 1. Use useGameState
- * 2. Use props passed from <Game> in the form of a dictionary
- * 3. Use LocalStorage to cache info and pull from there
- * 
- * Leaning towards 3, and 1 combo  
- *
- * 
- * First thing first: Shape. 
- * We can use a row technique: Probably so 
- * 
- * 
- * Have a large map. Each letter is assigned 
-*/

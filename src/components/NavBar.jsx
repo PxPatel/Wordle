@@ -23,7 +23,7 @@ const NavBar = ({ activeKB, setKB }) => {
     <div className={`relative w-full h-[5.5rem] ${NavBarColor.bgDark} ${NavBarColor.bgLight} border-b-2 border-b-[#3e4f6d]`} >
 
       <div 
-        className={`relative h-full font-TMS centerStage place-items-center ${NavBarColor.textDark} ${NavBarColor.textLight} text-4xl font-extrabold tracking-wide subpixel-antialiased`}
+        className={`relative h-full w-max centerStage m-auto font-TMS  ${NavBarColor.textDark} ${NavBarColor.textLight} text-4xl font-extrabold tracking-wide subpixel-antialiased cursor-pointer`}
         tabIndex={-1}
         onClick={resetGame}
         >

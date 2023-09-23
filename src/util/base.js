@@ -1,7 +1,4 @@
 import axios from "axios"
-// import { colorScheme } from './constants'
-
-export const deepCopify = (arr) => JSON.parse(JSON.stringify(arr))
 
 export const dictify = (str) => {
   var dict = new Map(); //Can be done with simply {} //Update coming soon

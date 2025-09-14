@@ -11,7 +11,7 @@ export const delay = ms => new Promise(
 );
 
 export const randomWordAPI = async () => {
-    const url = 'https://random-word-api.herokuapp.com/word?length=5'
+    const url = 'https://random-word-api.vercel.app/api?length=5'
     const res = await axios.get(url)
         .then(res => (res.data)[0].toUpperCase())
         .then(async (res) => { 

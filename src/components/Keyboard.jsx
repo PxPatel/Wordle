@@ -2,6 +2,8 @@
 import React, { useEffect, useCallback, useLayoutEffect, useRef, useMemo, useState } from 'react'
 import { FULL_FLIP_WAIT, keyboardLayout, colorScheme } from '../util/constants'
 import { useImmer } from 'use-immer'
+import { v4 as uuidv4 } from 'uuid';
+
 
 const colorWeight = {
   [colorScheme.Keyboard.tileColors.absent] : 0,
@@ -107,12 +109,12 @@ const Keyboard = ({ rowEntered, onPress}) => {
           {keyboardLayout.map((row, rowIndex) =>
               <div 
                   id={`row-${rowIndex}`}
-                  key={crypto.randomUUID()} 
+                  key={uuidv4()} 
                   className='centerStage mb-2 h-fit w-fit'>
                       {row.map((letter) =>
                           <div
                               id={letter}
-                              key={crypto.randomUUID()}
+                              key={uuidv4()}
                               className={`centerStage box-border h-[3.25rem] w-[2.5rem] border border-gray-600 rounded mx-1 font-semibold text-[1.25rem] ${colorScheme.Keyboard.text} ${letter in letterDict ? letterDict[letter] : colorScheme.Keyboard.uncolored} hover:cursor-pointer`}
                               onClick={() => getLetterPressed({key: letter})}
                               >
